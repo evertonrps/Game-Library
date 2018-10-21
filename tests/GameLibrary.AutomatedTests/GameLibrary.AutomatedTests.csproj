@@ -17,7 +17,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Game\" />
+    <Compile Update="CreateGame\CreateGameFeature.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CreateGameFeature.feature</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="CreateGame\CreateGameFeature.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>CreateGameFeature.feature.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>
