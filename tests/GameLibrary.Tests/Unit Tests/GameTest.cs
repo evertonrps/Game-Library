@@ -17,12 +17,14 @@ namespace GameLibrary.Tests.Unit_Tests
     {
         private readonly string _title;
         private readonly string _description;
+        private readonly int _producerId;
 
         public GameTest()
         {
             var fake = new Faker();
             _title = fake.Lorem.Text();
             _description = fake.Lorem.Paragraphs(2);
+            _producerId = fake.Random.Int(1,10000);
         }
 
         [Fact]
@@ -31,10 +33,11 @@ namespace GameLibrary.Tests.Unit_Tests
             var expectedGame = new
             {
                 Title = _title,
-                Description = _description
+                Description = _description,
+                ProducerId = _producerId
             };
 
-            var game = new Game(expectedGame.Title, expectedGame.Description);
+            var game = new Game(expectedGame.Title, expectedGame.Description, expectedGame.ProducerId );
 
             expectedGame.ToExpectedObject().ShouldMatch(game);
         }

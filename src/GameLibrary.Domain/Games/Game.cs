@@ -10,11 +10,17 @@ namespace GameLibrary.Domain.Games
     {
         public string Title { get; private set; }
         public string Description { get; private set; }
+        public int ProducerId { get; private set; }
 
-        public Game(string title, string _description)
+        private Game()
+        {
+
+        }
+        public Game(string title, string _description, int _producerId)
         {
             Title = title;
             Description = _description;
+            ProducerId = _producerId;
         }
         public override bool IsValid()
         {
@@ -26,7 +32,18 @@ namespace GameLibrary.Domain.Games
         {
             ValidateTitle();
             ValidationResult = Validate(this);
+           // ValidateProducer();
         }
+
+        //private void ValidateProducer()
+        //{
+        //    if (Producer.IsValid()) return;
+
+        //    foreach (var error in Producer.ValidationResult.Errors)
+        //    {
+        //        ValidationResult.Errors.Add(error);
+        //    }
+        //}
 
         private void ValidateTitle()
         {
@@ -34,5 +51,8 @@ namespace GameLibrary.Domain.Games
                 .NotEmpty().WithMessage("Game name must be provided and must be between 2 and 150 characters")
                 .Length(2, 150).WithMessage("Game name must be provided and must be between 2 and 150 characters");
         }
+
+        //EF
+        public virtual Producer Producer { get; private set; }
     }
 }
