@@ -10,6 +10,7 @@ using ExpectedObjects;
 using Bogus;
 using GameLibrary.Domain;
 using GameLibrary.Domain.Games;
+using GameLibrary.Domain.Core.Resources;
 
 namespace GameLibrary.Tests.Unit_Tests
 {
@@ -56,7 +57,7 @@ namespace GameLibrary.Tests.Unit_Tests
             IList<ValidationFailure> failures = ret.ValidationResult.Errors;
 
             //Assert
-            Assert.Contains("Game name must be provided and must be between 2 and 150 characters", failures.Select(y => y.ErrorMessage).ToList());
+            Assert.Contains(Messages.GameTitleInvalid, failures.Select(y => y.ErrorMessage).ToList());
         }
     }
 }

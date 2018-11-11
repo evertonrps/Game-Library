@@ -12,11 +12,6 @@ namespace GameLibrary.Data.Context
         public DbSet<Game> Games { get; set; }
         public DbSet<Producer> Producers { get; set; }
 
-        public GameLibraryContext(DbContextOptions<GameLibraryContext> options) : base(options)
-        {
-
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.AddConfiguration(new GameMapping());

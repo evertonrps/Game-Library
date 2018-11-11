@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using GameLibrary.Domain.Core;
+using GameLibrary.Domain.Core.Resources;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -40,8 +41,13 @@ namespace GameLibrary.Domain.Games
         private void ValidateName()
         {
             RuleFor(c => c.Name)
-                .NotEmpty().WithMessage("Producer name must be provided and must be between 2 and 150 characters")
-                .Length(2, 150).WithMessage("Producer name must be provided and must be between 2 and 150 characters");
+                .NotEmpty().WithMessage(Messages.ProducerNameInvalid)
+                .Length(2, 150).WithMessage(Messages.ProducerNameInvalid);
+
+            RuleFor(c => c.Founded)
+            .NotEmpty().WithMessage(Messages.ProducerFoundedEmpty)
+            .GreaterThan(DateTime.MinValue).WithMessage(Messages.ProducerFoundedInvalid);
+        
         }
     }
 }

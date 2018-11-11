@@ -13,6 +13,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using AutoMapper;
+using System.Reflection;
 
 namespace GameLibrary.Api
 {
@@ -28,13 +30,13 @@ namespace GameLibrary.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Contexto do EF para o Identity
-            services.AddDbContext<GameLibraryContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddOptions();
 
+            services.AddAutoMapper();
 
-            BootStrapper.ConfigureServices(services, Configuration);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            BootStrapper.ConfigureServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,7 +54,7 @@ namespace GameLibrary.Api
                 var unitOfWork = (IUnitOfWork)context.RequestServices.GetService(typeof(IUnitOfWork));
                 await unitOfWork.Commit();
             });
-
+            app.UseStaticFiles();
             app.UseMvc();
         }
     }

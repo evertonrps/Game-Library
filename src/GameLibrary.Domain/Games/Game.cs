@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using GameLibrary.Domain.Core;
+using GameLibrary.Domain.Core.Resources;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -48,8 +49,8 @@ namespace GameLibrary.Domain.Games
         private void ValidateTitle()
         {
             RuleFor(c => c.Title)
-                .NotEmpty().WithMessage("Game name must be provided and must be between 2 and 150 characters")
-                .Length(2, 150).WithMessage("Game name must be provided and must be between 2 and 150 characters");
+                .NotEmpty().WithMessage(Messages.GameTitleInvalid)
+                .Length(2, 150).WithMessage(Messages.GameTitleInvalid);
         }
 
         //EF

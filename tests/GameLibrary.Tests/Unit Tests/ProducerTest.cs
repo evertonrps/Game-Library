@@ -8,6 +8,7 @@ using ExpectedObjects;
 using GameLibrary.Tests.Builders;
 using FluentValidation.Results;
 using System.Linq;
+using GameLibrary.Domain.Core.Resources;
 
 namespace GameLibrary.Tests.Unit_Tests
 {
@@ -34,7 +35,21 @@ namespace GameLibrary.Tests.Unit_Tests
             IList<ValidationFailure> failures = ret.ValidationResult.Errors;
 
             //Assert
-            Assert.Contains("Producer name must be provided and must be between 2 and 150 characters", failures.Select(y => y.ErrorMessage).ToList());
+            Assert.Contains(Messages.ProducerNameInvalid, failures.Select(y => y.ErrorMessage).ToList());
+        }
+
+        [Fact]
+        public void Producer_CreateProducerWithInvalidFouded_Fail()
+        {
+            //Arrange                        
+            var ret = ProducerBuilder.Create().SetFounded(DateTime.MinValue).Build();
+
+            //Act
+            var x = ret.IsValid();
+            IList<ValidationFailure> failures = ret.ValidationResult.Errors;
+
+            //Assert
+            Assert.Contains(Messages.ProducerFoundedInvalid, failures.Select(y => y.ErrorMessage).ToList());
         }
     }
 }

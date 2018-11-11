@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using GameLibrary.Api.ViewModels;
+using GameLibrary.Domain.Games;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameLibrary.Api.Controllers
@@ -10,8 +13,22 @@ namespace GameLibrary.Api.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        // GET api/values
+        private readonly IMapper _mapper;
+
+        public ValuesController(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
+
         [HttpGet]
+        public ActionResult<ProducerViewModel> Producer()
+        {
+            var producer = new Producer("Everton", DateTime.Now, "www.evertonrps.net");
+            var ret = _mapper.Map<ProducerViewModel>(producer);
+            return new ActionResult<ProducerViewModel>(ret);
+        }
+        // GET api/values
+        //[HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
             return new string[] { "value1", "value2" };
