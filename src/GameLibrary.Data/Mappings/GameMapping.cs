@@ -19,9 +19,9 @@ namespace GameLibrary.Data.Mappings
             .HasMaxLength(150)
             .HasColumnType("varchar(max)");
 
-            builder.HasOne(c => c.Producer)
+            builder.HasOne(c => c.Developer)
             .WithMany(y => y.Games)
-            .HasForeignKey(c => c.ProducerId);
+            .HasForeignKey(c => c.DeveloperId);
 
             builder.Ignore(e => e.ValidationResult);
 

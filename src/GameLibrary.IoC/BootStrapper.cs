@@ -22,7 +22,7 @@ namespace GameLibrary.IoC
             services.AddScoped<GameLibraryContext>();
 
             services.AddScoped(typeof(IGameRepository), typeof(GameRepository));
-            services.AddScoped(typeof(IProducerRepository), typeof(ProducerRepository));
+            services.AddScoped(typeof(IDeveloperRepository), typeof(DeveloperRepository));
             services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
         }
     }

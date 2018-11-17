@@ -6,12 +6,12 @@ using System.Text;
 
 namespace GameLibrary.Tests.Builders
 {
-    public class ProducerBuilder
+    public class DeveloperBuilder
     {
         private string _name;
         private DateTime _founded;
         private string _webSite;
-        public ProducerBuilder()
+        public DeveloperBuilder()
         {
             var fake = new Faker();
             _name = fake.Company.CompanyName();
@@ -19,33 +19,33 @@ namespace GameLibrary.Tests.Builders
             _webSite = fake.Internet.Url();
         }
 
-        public static ProducerBuilder Create()
+        public static DeveloperBuilder Create()
         {
-            return new ProducerBuilder();
+            return new DeveloperBuilder();
         }
 
-        public ProducerBuilder SetName(string name)
+        public DeveloperBuilder SetName(string name)
         {
             _name = name;
             return this;
         }
 
-        public ProducerBuilder SetFounded(DateTime founded)
+        public DeveloperBuilder SetFounded(DateTime founded)
         {
             _founded = founded;
             return this;
         }
 
 
-        public ProducerBuilder SetWebSite(string webSite)
+        public DeveloperBuilder SetWebSite(string webSite)
         {
             _webSite = webSite;
             return this;
         }
 
-        public Producer Build()
+        public Developer Build()
         {
-            return new Producer(_name, _founded, _webSite);
+            return new Developer(_name, _founded, _webSite);
         }
     }
 }

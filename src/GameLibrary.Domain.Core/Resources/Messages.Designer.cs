@@ -70,29 +70,29 @@ namespace GameLibrary.Domain.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Producer founded must be provided.
+        ///   Looks up a localized string similar to Developer founded must be provided.
         /// </summary>
-        public static string ProducerFoundedEmpty {
+        public static string DeveloperFoundedEmpty {
             get {
-                return ResourceManager.GetString("ProducerFoundedEmpty", resourceCulture);
+                return ResourceManager.GetString("DeveloperFoundedEmpty", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Producer founded must be valid.
+        ///   Looks up a localized string similar to Developer founded must be valid.
         /// </summary>
-        public static string ProducerFoundedInvalid {
+        public static string DeveloperFoundedInvalid {
             get {
-                return ResourceManager.GetString("ProducerFoundedInvalid", resourceCulture);
+                return ResourceManager.GetString("DeveloperFoundedInvalid", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Producer title must be provided and must be between 2 and 150 characters.
+        ///   Looks up a localized string similar to Developer title must be provided and must be between 2 and 150 characters.
         /// </summary>
-        public static string ProducerNameInvalid {
+        public static string DeveloperNameInvalid {
             get {
-                return ResourceManager.GetString("ProducerNameInvalid", resourceCulture);
+                return ResourceManager.GetString("DeveloperNameInvalid", resourceCulture);
             }
         }
     }

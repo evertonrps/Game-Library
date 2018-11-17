@@ -120,13 +120,13 @@
   <data name="GameTitleInvalid" xml:space="preserve">
     <value>Game name must be provided and must be between 2 and 150 characters</value>
   </data>
-  <data name="ProducerFoundedEmpty" xml:space="preserve">
-    <value>Producer founded must be provided</value>
+  <data name="DeveloperFoundedEmpty" xml:space="preserve">
+    <value>Developer founded must be provided</value>
   </data>
-  <data name="ProducerFoundedInvalid" xml:space="preserve">
-    <value>Producer founded must be valid</value>
+  <data name="DeveloperFoundedInvalid" xml:space="preserve">
+    <value>Developer founded must be valid</value>
   </data>
-  <data name="ProducerNameInvalid" xml:space="preserve">
-    <value>Producer title must be provided and must be between 2 and 150 characters</value>
+  <data name="DeveloperNameInvalid" xml:space="preserve">
+    <value>Developer title must be provided and must be between 2 and 150 characters</value>
   </data>
 </root>

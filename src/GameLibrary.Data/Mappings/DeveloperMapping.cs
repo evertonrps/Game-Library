@@ -8,9 +8,9 @@ using System.Text;
 
 namespace GameLibrary.Data.Mappings
 {
-    public class ProducerMapping : EntityTypeConfiguration<Producer>
+    public class DeveloperMapping : EntityTypeConfiguration<Developer>
     {
-        public override void Map(EntityTypeBuilder<Producer> builder)
+        public override void Map(EntityTypeBuilder<Developer> builder)
         {
             builder.Property(c => c.Name)
                .HasColumnType("varchar(150)")
@@ -28,7 +28,7 @@ namespace GameLibrary.Data.Mappings
 
             builder.Ignore(e => e.CascadeMode);
 
-            builder.ToTable("Producers");
+            builder.ToTable("Developers");
         }
     }
 }

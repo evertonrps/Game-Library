@@ -12,7 +12,7 @@ namespace GameLibrary.Api.AutoMapper
     {
         public ViewModelToDomainMappingProfile()
         {
-            CreateMap<ProducerViewModel,Producer>();
+            CreateMap<DeveloperViewModel,Developer>();
         }
     }
 }

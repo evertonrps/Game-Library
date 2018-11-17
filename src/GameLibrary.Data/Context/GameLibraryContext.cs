@@ -10,12 +10,12 @@ namespace GameLibrary.Data.Context
     public class GameLibraryContext : DbContext
     {
         public DbSet<Game> Games { get; set; }
-        public DbSet<Producer> Producers { get; set; }
+        public DbSet<Developer> Developers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.AddConfiguration(new GameMapping());
-            modelBuilder.AddConfiguration(new ProducerMapping());
+            modelBuilder.AddConfiguration(new DeveloperMapping());
 
             base.OnModelCreating(modelBuilder);
         }

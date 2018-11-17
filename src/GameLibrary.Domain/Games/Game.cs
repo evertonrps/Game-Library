@@ -11,17 +11,17 @@ namespace GameLibrary.Domain.Games
     {
         public string Title { get; private set; }
         public string Description { get; private set; }
-        public int ProducerId { get; private set; }
+        public int DeveloperId { get; private set; }
 
         private Game()
         {
 
         }
-        public Game(string title, string _description, int _producerId)
+        public Game(string title, string _description, int _DeveloperId)
         {
             Title = title;
             Description = _description;
-            ProducerId = _producerId;
+            DeveloperId = _DeveloperId;
         }
         public override bool IsValid()
         {
@@ -33,14 +33,14 @@ namespace GameLibrary.Domain.Games
         {
             ValidateTitle();
             ValidationResult = Validate(this);
-           // ValidateProducer();
+           // ValidateDeveloper();
         }
 
-        //private void ValidateProducer()
+        //private void ValidateDeveloper()
         //{
-        //    if (Producer.IsValid()) return;
+        //    if (Developer.IsValid()) return;
 
-        //    foreach (var error in Producer.ValidationResult.Errors)
+        //    foreach (var error in Developer.ValidationResult.Errors)
         //    {
         //        ValidationResult.Errors.Add(error);
         //    }
@@ -54,6 +54,6 @@ namespace GameLibrary.Domain.Games
         }
 
         //EF
-        public virtual Producer Producer { get; private set; }
+        public virtual Developer Developer { get; private set; }
     }
 }

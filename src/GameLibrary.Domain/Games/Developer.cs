@@ -7,7 +7,7 @@ using System.Text;
 
 namespace GameLibrary.Domain.Games
 {
-    public class Producer : Entity<Producer>
+    public class Developer : Entity<Developer>
     {
         public string Name { get; private set; }
         public  DateTime Founded‎ { get; set; }
@@ -16,10 +16,10 @@ namespace GameLibrary.Domain.Games
 
         public virtual ICollection<Game> Games { get; set; }
 
-        protected Producer() { }
+        protected Developer() { }
                 
 
-        public Producer(string name, DateTime founded, string webSite)
+        public Developer(string name, DateTime founded, string webSite)
         {
             Name = name;
             Founded = founded;
@@ -41,12 +41,12 @@ namespace GameLibrary.Domain.Games
         private void ValidateName()
         {
             RuleFor(c => c.Name)
-                .NotEmpty().WithMessage(Messages.ProducerNameInvalid)
-                .Length(2, 150).WithMessage(Messages.ProducerNameInvalid);
+                .NotEmpty().WithMessage(Messages.DeveloperNameInvalid)
+                .Length(2, 150).WithMessage(Messages.DeveloperNameInvalid);
 
             RuleFor(c => c.Founded)
-            .NotEmpty().WithMessage(Messages.ProducerFoundedEmpty)
-            .GreaterThan(DateTime.MinValue).WithMessage(Messages.ProducerFoundedInvalid);
+            .NotEmpty().WithMessage(Messages.DeveloperFoundedEmpty)
+            .GreaterThan(DateTime.MinValue).WithMessage(Messages.DeveloperFoundedInvalid);
         
         }
     }

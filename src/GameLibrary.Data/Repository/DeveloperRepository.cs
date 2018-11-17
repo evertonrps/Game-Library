@@ -7,9 +7,9 @@ using System.Text;
 
 namespace GameLibrary.Data.Repository
 {
-    public class ProducerRepository : Repository<Producer>, IProducerRepository
+    public class DeveloperRepository : Repository<Developer>, IDeveloperRepository
     {
-        public ProducerRepository(GameLibraryContext context) : base(context)
+        public DeveloperRepository(GameLibraryContext context) : base(context)
         {
 
         }
