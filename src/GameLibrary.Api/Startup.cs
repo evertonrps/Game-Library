@@ -54,13 +54,13 @@ namespace GameLibrary.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.Use(async (context, next) =>
-            {
-                await next.Invoke();
+            //app.Use(async (context, next) =>
+            //{
+            //    await next.Invoke();
 
-                var unitOfWork = (IUnitOfWork)context.RequestServices.GetService(typeof(IUnitOfWork));
-                await unitOfWork.Commit();
-            });
+            //    var unitOfWork = (IUnitOfWork)context.RequestServices.GetService(typeof(IUnitOfWork));
+            //    await unitOfWork.Commit();
+            //});
             app.UseCors(c =>
             {
                 c.AllowAnyHeader();

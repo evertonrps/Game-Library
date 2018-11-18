@@ -7,6 +7,6 @@ namespace GameLibrary.Domain.Interfaces
 {
     public interface IUnitOfWork
     {
-        Task Commit();
+        Task<int> Commit();
     }
 }

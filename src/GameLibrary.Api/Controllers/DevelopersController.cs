@@ -19,24 +19,34 @@ namespace GameLibrary.Api.Controllers
     {
         private readonly IDeveloperRepository _developerRepository;
         private readonly IMapper _mapper;
+        private readonly IUnitOfWork _uow;
 
-        public DevelopersController(IDeveloperRepository developerRepository, IMapper mapper)
+        public DevelopersController(IDeveloperRepository developerRepository, IMapper mapper, IUnitOfWork uow)
         {
             _developerRepository = developerRepository;
             _mapper = mapper;
+            _uow = uow;
         }
         // GET: api/Developers
         [HttpGet]
-        public  IEnumerable<DeveloperViewModel> Get()
+        public Result<IEnumerable<DeveloperViewModel>> Get()
         {
-           // var result = new Result<IEnumerable<DeveloperViewModel>>();            
-            
-            var lista = new List<DeveloperViewModel>
+            var result = new Result<IEnumerable<DeveloperViewModel>>();
+
+            try
             {
-                new DeveloperViewModel { Name = "Nintendo", Founded = new DateTime(1889, 09, 23), WebSite = "http://nintendo.com" },
-                new DeveloperViewModel { Name = "Sega", Founded = new DateTime(1989, 08, 5), WebSite = "http://sega.com" }
-            };
-            return lista;
+                result.Item = _mapper.Map<IEnumerable<DeveloperViewModel>>(_developerRepository.GetAll());
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                result.Message = ex.Message;
+                result.StatusCode = HttpStatusCode.BadRequest;
+                return result;
+            }
+
         }
 
         // GET: api/Developers/5
@@ -55,14 +65,22 @@ namespace GameLibrary.Api.Controllers
             try
             {
                 var dev = _mapper.Map<Developer>(value);
-                var added =_developerRepository.Add(dev);               
-                result.Item = _mapper.Map<DeveloperViewModel>(added);
+                var added = _developerRepository.Add(dev);
 
-                result.StatusCode = HttpStatusCode.OK;
-                return result;
+                if (_uow.Commit().Result > 0)
+                {
+                    result.Item = _mapper.Map<DeveloperViewModel>(added);
+                    result.StatusCode = HttpStatusCode.Created;
+                    return result;
+                }
+                else
+                {
+                    throw new Exception("Falha ao inserir");
+                }
             }
             catch (Exception ex)
             {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 value.Id = 1;
                 result.StatusCode = HttpStatusCode.BadRequest;
                 result.Item = value;

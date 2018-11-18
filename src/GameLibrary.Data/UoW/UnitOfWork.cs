@@ -16,9 +16,9 @@ namespace GameLibrary.Data.UoW
             _context = context;
         }
 
-        public async Task Commit()
+        public async Task<int> Commit()
         {
-            await _context.SaveChangesAsync();
+           return  await _context.SaveChangesAsync();
         }
     }
 }
