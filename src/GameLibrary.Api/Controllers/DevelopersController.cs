@@ -37,7 +37,6 @@ namespace GameLibrary.Api.Controllers
             {
                 result.Item = _mapper.Map<IEnumerable<DeveloperViewModel>>(_developerRepository.GetAll());
                 return result;
-
             }
             catch (Exception ex)
             {
@@ -81,7 +80,7 @@ namespace GameLibrary.Api.Controllers
             catch (Exception ex)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                value.Id = 1;
+                value.Id = 0;
                 result.StatusCode = HttpStatusCode.BadRequest;
                 result.Item = value;
                 result.Message = ex.Message;
