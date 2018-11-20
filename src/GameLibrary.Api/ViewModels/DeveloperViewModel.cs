@@ -9,7 +9,7 @@ namespace GameLibrary.Api.ViewModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public DateTime Founded‎ { get; set; }
+        public string Founded‎ { get; set; }
         public string WebSite { get; set; }
     }
 }

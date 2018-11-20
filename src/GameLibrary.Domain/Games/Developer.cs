@@ -46,7 +46,8 @@ namespace GameLibrary.Domain.Games
 
             RuleFor(c => c.Founded)
             .NotEmpty().WithMessage(Messages.DeveloperFoundedEmpty)
-            .GreaterThan(DateTime.MinValue).WithMessage(Messages.DeveloperFoundedInvalid);
+            .GreaterThan(DateTime.MinValue).WithMessage(Messages.DeveloperFoundedInvalid)
+            .LessThan(DateTime.Now).WithMessage(Messages.DeveloperFoundedInvalid);
         
         }
     }

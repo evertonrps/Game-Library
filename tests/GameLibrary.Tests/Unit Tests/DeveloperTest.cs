@@ -38,11 +38,14 @@ namespace GameLibrary.Tests.Unit_Tests
             Assert.Contains(Messages.DeveloperNameInvalid, failures.Select(y => y.ErrorMessage).ToList());
         }
 
-        [Fact]
-        public void Developer_CreateDeveloperWithInvalidFouded_Fail()
+        [Theory]
+        [InlineData("2019-01-01")]        
+        [InlineData("0001-01-01")]
+        public void Developer_CreateDeveloperWithInvalidFouded_Fail(string dateTime)
         {
+            var data = Convert.ToDateTime(dateTime);
             //Arrange                        
-            var ret = DeveloperBuilder.Create().SetFounded(DateTime.MinValue).Build();
+            var ret = DeveloperBuilder.Create().SetFounded(data).Build();
 
             //Act
             var x = ret.IsValid();

@@ -64,18 +64,25 @@ namespace GameLibrary.Api.Controllers
             try
             {
                 var dev = _mapper.Map<Developer>(value);
-                var added = _developerRepository.Add(dev);
-
-                if (_uow.Commit().Result > 0)
+                if (dev.IsValid())
                 {
-                    result.Item = _mapper.Map<DeveloperViewModel>(added);
-                    result.StatusCode = HttpStatusCode.Created;
-                    return result;
+                    var added = _developerRepository.Add(dev);
+                    if (_uow.Commit().Result > 0)
+                    {
+                        result.Item = _mapper.Map<DeveloperViewModel>(added);
+                        result.StatusCode = HttpStatusCode.Created;
+                        return result;
+                    }
+                    else
+                    {
+                        throw new Exception("Falha ao inserir");
+                    }
                 }
                 else
                 {
                     throw new Exception("Falha ao inserir");
                 }
+
             }
             catch (Exception ex)
             {

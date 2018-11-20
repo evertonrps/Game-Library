@@ -21,6 +21,10 @@ namespace GameLibrary.Api
 {
     public class Startup
     {
+        /*
+         * Configuração IIS
+         * https://docs.microsoft.com/pt-br/aspnet/core/host-and-deploy/iis/development-time-iis-support?view=aspnetcore-2.1
+         */
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
