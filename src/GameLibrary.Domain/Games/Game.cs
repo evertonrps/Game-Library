@@ -55,5 +55,7 @@ namespace GameLibrary.Domain.Games
 
         //EF
         public virtual Developer Developer { get; private set; }
+
+        public virtual ICollection<GamePlatform> GamePlatform { get; set; }
     }
 }
