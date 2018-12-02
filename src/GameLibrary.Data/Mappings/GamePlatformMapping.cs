@@ -22,8 +22,7 @@ namespace GameLibrary.Data.Mappings
                 .WithMany(pg => pg.GamePlatform)
                 .HasForeignKey(p => p.PlatformId);
 
-            builder.Ignore(c => c.Game);
-            builder.Ignore(c => c.Platform);
+            builder.Ignore(e => e.Platform);
 
             builder.ToTable("GamePlatforms");
         }

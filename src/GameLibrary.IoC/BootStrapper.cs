@@ -23,6 +23,8 @@ namespace GameLibrary.IoC
 
             services.AddScoped(typeof(IGameRepository), typeof(GameRepository));
             services.AddScoped(typeof(IDeveloperRepository), typeof(DeveloperRepository));
+            services.AddScoped(typeof(IPlatformRepository), typeof(PlatformRepository));
+            services.AddScoped(typeof(IPlatformTypeRepository), typeof(PlatformTypeRepository));
             services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
         }
     }

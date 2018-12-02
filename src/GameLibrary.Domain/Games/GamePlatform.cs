@@ -13,7 +13,7 @@ namespace GameLibrary.Domain.Games
         public int PlatformId { get; set; }
 
         //EF
-        public Game Game { get; set; }
-        public Platform Platform { get; set; }
+        public virtual Game Game { get; set; }
+        public virtual Platform Platform { get; set; }
     }
 }

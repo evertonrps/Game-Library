@@ -13,7 +13,10 @@ namespace GameLibrary.Api.AutoMapper
         public DomainToViewModelMappingProfile()
         {
             CreateMap<Developer, DeveloperViewModel>();
-            CreateMap<Game, GameViewModel>();
+            CreateMap<Game, GameViewModel>();//.ForMember(m=> m.GamePlatform, opt=> opt.MapFrom(src=> src.GamePlatform)).ReverseMap();
+            CreateMap<PlatformType, PlatformTypeViewModel>();
+            CreateMap<Platform, PlatformViewModel>();
+            CreateMap<GamePlatform, GamePlatformViewModel>();
         }
     }
 }

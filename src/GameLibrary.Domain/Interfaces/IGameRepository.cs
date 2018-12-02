@@ -7,5 +7,6 @@ namespace GameLibrary.Domain.Interfaces
 {
     public interface IGameRepository :IRepository<Game>
     {
+        IEnumerable<Game> RecuperaGamesCompletos();
     }
 }

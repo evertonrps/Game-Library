@@ -9,7 +9,7 @@ namespace GameLibrary.Domain.Games
 {
     public class PlatformType : Entity<PlatformType>
     {
-        protected PlatformType(){}
+        public PlatformType(){}
 
         public PlatformType(string description)
         {

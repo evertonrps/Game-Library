@@ -22,6 +22,8 @@ namespace GameLibrary.Data.Mappings
 
             builder.Ignore(e => e.CascadeMode);
 
+            builder.Ignore(e => e.GamePlatform);
+
             builder.ToTable("Platforms");
         }
     }

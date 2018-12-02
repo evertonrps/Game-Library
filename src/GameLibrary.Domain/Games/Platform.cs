@@ -9,7 +9,7 @@ namespace GameLibrary.Domain.Games
 {
     public class Platform : Entity<Platform>
     {
-        private Platform() { }
+        public Platform() { }
 
         public Platform(string description, int plataformTypeId)
         {

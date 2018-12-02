@@ -20,10 +20,12 @@ namespace GameLibrary.Api.Controllers
         private readonly IGameRepository _gameRepository;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _uow;
+        private readonly IPlatformRepository _platformRepository;
 
-        public GamesController(IGameRepository gameRepository, IMapper mapper, IUnitOfWork uow)
+        public GamesController(IGameRepository gameRepository, IPlatformRepository platformRepository, IMapper mapper, IUnitOfWork uow)
         {
             _gameRepository = gameRepository;
+            _platformRepository = platformRepository;
             _mapper = mapper;
             _uow = uow;
         }
@@ -35,7 +37,14 @@ namespace GameLibrary.Api.Controllers
 
             try
             {
-                result.Item = _mapper.Map<IEnumerable<GameViewModel>>(_gameRepository.GetAll());
+                var resultado = _gameRepository.GetAll();
+                var rx =resultado.Select(c => new GameViewModel { Id = c.Id, Description = c.Description, DeveloperId = c.DeveloperId, Title = c.Title} );
+                result.Item = rx.ToList();  
+
+                foreach (var item in result.Item)
+                {
+                    item.Platform = new List<PlatformViewModel>(_mapper.Map<List<PlatformViewModel>>(_platformRepository.GetAll().Where(c => c.GamePlatform.FirstOrDefault().GameId == item.Id).ToList()));
+                }
                 return result;
             }
             catch (Exception ex)
@@ -46,6 +55,7 @@ namespace GameLibrary.Api.Controllers
                 return result;
             }
         }
+
 
         // GET: api/Games/5
         [HttpGet("{id}")]

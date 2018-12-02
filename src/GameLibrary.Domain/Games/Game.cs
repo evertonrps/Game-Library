@@ -13,7 +13,7 @@ namespace GameLibrary.Domain.Games
         public string Description { get; private set; }
         public int DeveloperId { get; private set; }
 
-        private Game()
+        public Game()
         {
 
         }
@@ -54,7 +54,9 @@ namespace GameLibrary.Domain.Games
         }
 
         //EF
-        public virtual Developer Developer { get; private set; }
+        public virtual Developer Developer { get; set; }
+
+        //public virtual ICollection<Platform> Platform { get; set; }
 
         public virtual ICollection<GamePlatform> GamePlatform { get; set; }
     }

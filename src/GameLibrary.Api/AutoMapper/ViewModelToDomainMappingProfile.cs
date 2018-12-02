@@ -14,6 +14,9 @@ namespace GameLibrary.Api.AutoMapper
         {
             CreateMap<DeveloperViewModel,Developer>();
             CreateMap<GameViewModel, Game>();
+            CreateMap<PlatformTypeViewModel, PlatformType>();
+            CreateMap<PlatformViewModel, Platform>();
+            CreateMap<GamePlatformViewModel, GamePlatform>();
         }
     }
 }

@@ -33,6 +33,7 @@ namespace GameLibrary.Data.Context
                 .AddJsonFile("appsettings.json")
                 .Build();
 
+            optionsBuilder.UseLazyLoadingProxies();
             optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
         }
     }
