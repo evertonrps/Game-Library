@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GameLibrary.Api.Controllers
 {
-    [Route("api/platformType")]
+    [Route("api/platformTypes")]
     [ApiController]
     public class PlatformTypeController : ControllerBase
     {
@@ -29,20 +29,18 @@ namespace GameLibrary.Api.Controllers
 
         // GET: api/PlatformType
         [HttpGet]
-        public Result<IEnumerable<PlatformTypeViewModel>> Get()
+        public IEnumerable<PlatformTypeViewModel> Get()
         {
-            var result = new Result<IEnumerable<PlatformTypeViewModel>>();
+            var result = new List<PlatformTypeViewModel>();
 
             try
             {
-                result.Item = _mapper.Map<IEnumerable<PlatformTypeViewModel>>(_platformTypeRepository.GetAll());
+                result = _mapper.Map<IEnumerable<PlatformTypeViewModel>>(_platformTypeRepository.GetAll()).ToList();
                 return result;
             }
             catch (Exception ex)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                result.Message = ex.Message;
-                result.StatusCode = HttpStatusCode.BadRequest;
                 return result;
             }
         }

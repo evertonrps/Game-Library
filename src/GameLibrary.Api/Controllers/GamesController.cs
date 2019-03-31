@@ -31,17 +31,17 @@ namespace GameLibrary.Api.Controllers
         }
         // GET: api/Games
         [HttpGet]
-        public Result<IEnumerable<GameViewModel>> Get()
+        public IEnumerable<GameViewModel> Get()
         {
-            var result = new Result<IEnumerable<GameViewModel>>();
+            var result = new List<GameViewModel>();
 
             try
             {
                 var resultado = _gameRepository.GetAll();
                 var rx =resultado.Select(c => new GameViewModel { Id = c.Id, Description = c.Description, DeveloperId = c.DeveloperId, Title = c.Title} );
-                result.Item = rx.ToList();  
+                result = rx.ToList();  
 
-                foreach (var item in result.Item)
+                foreach (var item in result)
                 {
                     item.Platform = new List<PlatformViewModel>(_mapper.Map<List<PlatformViewModel>>(_platformRepository.GetAll().Where(c => c.GamePlatform.FirstOrDefault().GameId == item.Id).ToList()));
                 }
@@ -50,8 +50,6 @@ namespace GameLibrary.Api.Controllers
             catch (Exception ex)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                result.Message = ex.Message;
-                result.StatusCode = HttpStatusCode.BadRequest;
                 return result;
             }
         }
@@ -66,9 +64,9 @@ namespace GameLibrary.Api.Controllers
 
         // POST: api/Games
         [HttpPost]
-        public Result<GameViewModel> Post([FromBody] GameViewModel value)
+        public GameViewModel Post([FromBody] GameViewModel value)
         {
-            var result = new Result<GameViewModel>();
+            var result = new GameViewModel();
             try
             {
                 var dev = _mapper.Map<Game>(value);
@@ -76,8 +74,8 @@ namespace GameLibrary.Api.Controllers
 
                 if (_uow.Commit().Result > 0)
                 {
-                    result.Item = _mapper.Map<GameViewModel>(added);
-                    result.StatusCode = HttpStatusCode.Created;
+                    result = _mapper.Map<GameViewModel>(added);
+                    //result.StatusCode = HttpStatusCode.Created;
                     return result;
                 }
                 else
@@ -89,9 +87,10 @@ namespace GameLibrary.Api.Controllers
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 value.Id = 0;
-                result.StatusCode = HttpStatusCode.BadRequest;
-                result.Item = value;
-                result.Message = ex.Message;
+                //result.StatusCode = HttpStatusCode.BadRequest;
+                //result.Item = value;
+                //result.Message = ex.Message;
+               // return BadRequest();
                 return result;
             }
         }

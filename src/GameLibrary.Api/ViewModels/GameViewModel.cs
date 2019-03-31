@@ -10,6 +10,7 @@ namespace GameLibrary.Api.ViewModels
         public int Id { get; set; }
         public string Title { get;  set; }
         public string Description { get; set; }
+        public int PlatformTypeId { get; set; }
         public int DeveloperId { get; set; }
         public List<PlatformViewModel> Platform { get; set; }
 

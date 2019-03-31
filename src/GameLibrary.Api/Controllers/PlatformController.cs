@@ -30,19 +30,17 @@ namespace GameLibrary.Api.Controllers
         }
         // GET: api/Platform
         [HttpGet]
-        public Result<IEnumerable<PlatformViewModel>> Get()
+        public IEnumerable<PlatformViewModel> Get()
         {
-            var result = new Result<IEnumerable<PlatformViewModel>>();
+            var result = new List<PlatformViewModel>();
             try
             {
-                result.Item = _mapper.Map<IEnumerable<PlatformViewModel>>(_platformRepository.GetAll());
+                result = _mapper.Map<IEnumerable<PlatformViewModel>>(_platformRepository.GetAll()).ToList();
                 return result;
             }
             catch (Exception ex)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                result.Message = ex.Message;
-                result.StatusCode = HttpStatusCode.BadRequest;
                 return result;
             }
         }

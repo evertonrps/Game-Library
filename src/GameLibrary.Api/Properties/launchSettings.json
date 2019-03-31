@@ -3,18 +3,18 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iis": {
-      "applicationUrl": "https://localhost/GameLibrary",
+      "applicationUrl": "http://localhost/GameLibrary",
       "sslPort": 0
     },
     "iisExpress": {
-      "applicationUrl": "http://localhost:55333",
+      "applicationUrl": "http://localhost:4200",
       "sslPort": 0
     }
   },
   "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
     "IIS Express": {
-      "commandName": "IIS",
+      "commandName": "IISExpress",
       "launchBrowser": true,
       "launchUrl": "docs",
       "environmentVariables": {
@@ -33,7 +33,7 @@
     "IIS Local": {
       "commandName": "IIS",
       "launchBrowser": true,
-      "launchUrl": "https://localhost/GameLibrary/docs",
+      "launchUrl": "http://localhost/GameLibrary/docs",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
