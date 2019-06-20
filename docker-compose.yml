@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+
+  serverApi:
+    image: gamelibrary.api
+    build:
+      context: .
+      dockerfile: src/GameLibrary.Api/Dockerfile
+  nginx:
+    image: gamelibrary.proxy
+    build: 
+      context: ./nginx
+      dockerfile: Dockerfile
+
+    ports:
+      - "8287:8286"
+    links:
+      - serverApi
