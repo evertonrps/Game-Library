@@ -12,6 +12,12 @@ namespace GameLibrary.Domain.Games
 
         public int PlatformId { get; set; }
 
+        public GamePlatform(int gameID, int platformID)
+        {
+            GameId = gameID;
+            PlatformId = platformID;
+        }
+
         //EF
         public virtual Game Game { get; set; }
         public virtual Platform Platform { get; set; }

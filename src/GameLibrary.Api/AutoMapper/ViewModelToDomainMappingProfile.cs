@@ -13,10 +13,12 @@ namespace GameLibrary.Api.AutoMapper
         public ViewModelToDomainMappingProfile()
         {
             CreateMap<DeveloperViewModel,Developer>();
-            CreateMap<GameViewModel, Game>();
+            CreateMap<GameViewModel, Game>()
+                .ConstructUsing(x=> new Game(x.Title, x.Description, x.DeveloperId));
             CreateMap<PlatformTypeViewModel, PlatformType>();
             CreateMap<PlatformViewModel, Platform>();
-            CreateMap<GamePlatformViewModel, GamePlatform>();
+            CreateMap<GamePlatformViewModel, GamePlatform>().
+                ConstructUsing(x=> new GamePlatform(x.GameId, x.PlatformId));
         }
     }
 }

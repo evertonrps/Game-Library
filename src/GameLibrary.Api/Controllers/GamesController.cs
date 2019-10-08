@@ -38,12 +38,13 @@ namespace GameLibrary.Api.Controllers
             try
             {
                 var resultado = _gameRepository.GetAll();
-                var rx =resultado.Select(c => new GameViewModel { Id = c.Id, Description = c.Description, DeveloperId = c.DeveloperId, Title = c.Title} );
-                result = rx.ToList();  
+                var rx = resultado.Select(c => new GameViewModel { Id = c.Id, Description = c.Description, DeveloperId = c.DeveloperId, Title = c.Title });
+                result = rx.ToList();
 
                 foreach (var item in result)
                 {
-                    item.Platform = new List<PlatformViewModel>(_mapper.Map<List<PlatformViewModel>>(_platformRepository.GetAll().Where(c => c.GamePlatform.FirstOrDefault().GameId == item.Id).ToList()));
+                    var plataformas = _platformRepository.GetAll(item.Id);
+                    item.Platform = new List<PlatformViewModel>(_mapper.Map<List<PlatformViewModel>>(plataformas));
                 }
                 return result;
             }
@@ -57,9 +58,17 @@ namespace GameLibrary.Api.Controllers
 
         // GET: api/Games/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            try
+            {
+                var gameEntity = _gameRepository.ObterGameCompletoPorID(id);
+                return Ok(gameEntity);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
         }
 
         // POST: api/Games
@@ -90,7 +99,7 @@ namespace GameLibrary.Api.Controllers
                 //result.StatusCode = HttpStatusCode.BadRequest;
                 //result.Item = value;
                 //result.Message = ex.Message;
-               // return BadRequest();
+                // return BadRequest();
                 return result;
             }
         }
