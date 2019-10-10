@@ -1,10 +1,11 @@
-﻿using System;
+﻿using GameLibrary.Domain.Core;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace GameLibrary.Domain.Games
 {
-    public class GamePlatform
+    public class GamePlatform :EntityMany<GamePlatform>
     {
         public GamePlatform() {  }
 

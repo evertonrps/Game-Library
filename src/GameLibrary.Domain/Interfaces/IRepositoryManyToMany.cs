@@ -6,13 +6,12 @@ using System.Text;
 
 namespace GameLibrary.Domain.Interfaces
 {
-    public interface IRepositoryManyToMany<TEntity> : IDisposable where TEntity : EntityMany<TEntity>
+    public interface IRepository<TEntity> : IDisposable where TEntity : Entity<TEntity>
     {
         IEnumerable<TEntity> GetAll();
 
         TEntity Add(TEntity obj);
-        void AddList(IEnumerable<TEntity> obj);
-       // TEntity GetById(int id);        
+        TEntity GetById(int id);        
         void Update(TEntity obj);
         void Delete(int id);
         IEnumerable<TEntity> GetByFunc(Expression<Func<TEntity, bool>> predicate);

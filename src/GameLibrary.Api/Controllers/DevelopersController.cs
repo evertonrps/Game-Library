@@ -29,50 +29,33 @@ namespace GameLibrary.Api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<DeveloperViewModel> Get()
+        public IActionResult Get()
         {
             try
             {
-                var list = _mapper.Map<IEnumerable<DeveloperViewModel>>(_developerRepository.GetAll());
-                Response.StatusCode = (int)HttpStatusCode.OK;
-                return list;
+                var list = _mapper.Map<IEnumerable<DeveloperViewModel>>(_developerRepository.GetAll());                
+                return Ok(list);
             }
             catch (Exception ex)
-            {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return new List<DeveloperViewModel>();
+            {                
+                return BadRequest(new List<DeveloperViewModel>());
             }
 
         }
 
-        // GET: api/Developers
-        //[HttpGet]
-        //public Result<IEnumerable<DeveloperViewModel>> Get()
-        //{
-        //    var result = new Result<IEnumerable<DeveloperViewModel>>();
-
-        //    try
-        //    {
-        //        result.Item = _mapper.Map<IEnumerable<DeveloperViewModel>>(_developerRepository.GetAll());
-        //        return result;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Response.StatusCode = (int)HttpStatusCode.BadRequest;
-        //        result.Message = ex.Message;
-        //        result.StatusCode = HttpStatusCode.BadRequest;
-        //        return result;
-        //    }
-
-        //}
-
         // GET: api/Developers/5
         [HttpGet("{id}")]
-        public DeveloperViewModel Get(int id)
+        public IActionResult Get(int id)
         {
+            try
+            {
 
-            return _mapper.Map<DeveloperViewModel>(_developerRepository.GetById(id));
-            //return "value";
+            return Ok(_mapper.Map<DeveloperViewModel>(_developerRepository.GetById(id)));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // POST: api/Developers
@@ -116,9 +99,8 @@ namespace GameLibrary.Api.Controllers
         //}
 
         [HttpPost]
-        public DeveloperViewModel Post([FromBody] DeveloperViewModel value)
-        {
-            //Just for test :)
+        public IActionResult Post([FromBody] DeveloperViewModel value)
+        {            
             try
             {
                 var dev = _mapper.Map<Developer>(value);
@@ -127,9 +109,8 @@ namespace GameLibrary.Api.Controllers
                     var added = _developerRepository.Add(dev);
                     if (_uow.Commit().Result > 0)
                     {
-                        var ret = _mapper.Map<DeveloperViewModel>(added);
-                        //result.StatusCode = HttpStatusCode.Created;
-                        return ret;
+                        var ret = _mapper.Map<DeveloperViewModel>(added);                        
+                        return Ok(ret);
                     }
                     else
                     {
@@ -144,20 +125,31 @@ namespace GameLibrary.Api.Controllers
             }
             catch (Exception ex)
             {
-                return new DeveloperViewModel();
-                //Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                //value.Id = 0;
-                //result.StatusCode = HttpStatusCode.BadRequest;
-                //result.Item = value;
-                //result.Message = ex.Message;
-                //return result;
+                return BadRequest(new DeveloperViewModel());
             }
         }
         // PUT: api/Developers/5
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] DeveloperViewModel value)
         {
-            return Ok();
+            try
+            {
+                var dev = _mapper.Map<Developer>(value);
+                _developerRepository.Update(dev);
+                if (_uow.Commit().Result > 0)
+                {
+                    var ret = _mapper.Map<DeveloperViewModel>(dev);
+                    return Ok(ret);
+                }
+                else
+                {
+                    throw new Exception("Falha ao inserir");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // DELETE: api/ApiWithActions/5
