@@ -25,6 +25,8 @@ namespace GameLibrary.Data.Repository
         }
         public dynamic ObterGameCompletoPorID(int id)
         {
+            var gamePlataformass = (from gp in _context.Set<GamePlatform>() where gp.GameId == id select gp).ToList();
+
             var result = (from g in _context.Set<Game>()
                           join gp in _context.Set<GamePlatform>() on g.Id equals gp.GameId
                           join d in _context.Set<Developer>() on g.DeveloperId equals d.Id
@@ -36,7 +38,7 @@ namespace GameLibrary.Data.Repository
                               Title = g.Title,
                               Description = g.Description,
                               DeveloperId = g.DeveloperId,
-                              GamePlatform = gp,
+                              GamePlatform = gamePlataformass,
                               PlatformTypeId = p.PlatformTypeId
                           }
                           ).FirstOrDefault();
