@@ -1,35 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
-using Xunit.Abstractions;
-using Xunit;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using TechTalk.SpecFlow;
 
-namespace GameLibrary.AutomatedTests.Utils
+namespace GameLibrary.BDD.Tests.Utils
 {
     [Binding]
     public class SeleniumHelper
     {
         public static IWebDriver CD;
         public static WebDriverWait Wait;
-
-
+        public static ConfigurationHelper configurationHelper;
 
         [Before]
         public void Setup()
         {
+            configurationHelper = ConfigurationHelper.Build();
             IniciaDriver();
-            NavegarParaUrl(ConfigurationHelper.PortalUrl);
+            NavegarParaUrl(configurationHelper.BaseUrl);
         }
 
         private static void IniciaDriver()
         {
             ChromeOptions options = new ChromeOptions();
             options.AddArguments("start-maximized");
-            options.AddArguments("--disable-popup-blocking");
-            CD = new ChromeDriver(ConfigurationHelper.ChromeDrive, options);
+            options.AddArguments("--disable-popup-blocking"); 
+            string chromedriverPath = configurationHelper.ChromeDriver.Replace("/","\\");
+            CD = new ChromeDriver(chromedriverPath, options);
             Wait = new WebDriverWait(CD, TimeSpan.FromSeconds(5));
         }
 
@@ -41,6 +41,7 @@ namespace GameLibrary.AutomatedTests.Utils
 
         public bool ValidarConteudoUrl(string conteudo)
         {
+            conteudo = $"{configurationHelper.BaseUrl}{conteudo}";
             return Wait.Until(c => c.Url.Contains(conteudo));
         }
 
@@ -78,9 +79,9 @@ namespace GameLibrary.AutomatedTests.Utils
 
         public void PreencherDropDownPorId(string idCampo, string valorCampo)
         {
-            var campo = Wait.Until(c => c.FindElement(By.Id(idCampo)));
-            var selectElement = new SelectElement(campo);
-            selectElement.SelectByValue(valorCampo);
+            //var campo = Wait.Until(c => c.FindElement(By.Id(idCampo)));
+            //var selectElement = new SelectElement(campo);
+            //selectElement.SelectByValue(valorCampo);
         }
 
         public string ObterTextoElementoPorClasse(string className)
@@ -110,7 +111,7 @@ namespace GameLibrary.AutomatedTests.Utils
 
         private static void SalvarScreenShot(Screenshot screenshot, string fileName)
         {
-            screenshot.SaveAsFile(string.Format("{0}{1}", ConfigurationHelper.FolderPicture, fileName),
+            screenshot.SaveAsFile(string.Format("{0}{1}", configurationHelper.FolderPicture, fileName),
                 ScreenshotImageFormat.Png);
         }
 
