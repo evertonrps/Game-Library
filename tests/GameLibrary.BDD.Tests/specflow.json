@@ -1,0 +1,11 @@
+{
+  "language": {
+    "feature": "pt-BR"
+  },
+  "AllowedHosts": "*",
+  "BaseUrl": "http://localhost:4200",
+  "HomeUrl": "",
+  "PortalUrl": "",
+  "FolderPicture": "\"\\ScreenShots\\\",",
+  "ChromeDrive": "\"D:\\Users\\everton\\Documents\\chromedriver\\\""
+}
