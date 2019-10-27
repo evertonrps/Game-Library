@@ -16,6 +16,11 @@ using Microsoft.Extensions.Options;
 using AutoMapper;
 using System.Reflection;
 using Swashbuckle.AspNetCore.Swagger;
+using GameLibrary.Api.Middleware;
+using GlobalExceptionHandler.WebApi;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http;
+using GameLibrary.Api.ExceptionHandler;
 
 namespace GameLibrary.Api
 {
@@ -24,6 +29,10 @@ namespace GameLibrary.Api
         /*
          * Configuração IIS
          * https://docs.microsoft.com/pt-br/aspnet/core/host-and-deploy/iis/development-time-iis-support?view=aspnetcore-2.1
+         * 
+         * Tratamento de erros
+         * https://github.com/JosephWoodward/GlobalExceptionHandlerDotNet
+         * 
          */
         public Startup(IConfiguration configuration)
         {
@@ -39,6 +48,8 @@ namespace GameLibrary.Api
             services.AddOptions();
 
             services.AddAutoMapper();
+
+      //      services.AddGlobalExceptionHandlerMiddleware();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -57,6 +68,20 @@ namespace GameLibrary.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            // app.UseExceptionHandler(); You no longer need this.
+            app.UseGlobalExceptionHandler(x => {
+                x.ContentType = "application/json";
+                x.ResponseBody(s => JsonConvert.SerializeObject(new
+                {
+                    Message = "An error occurred whilst processing your request"
+                }));
+                x.Map<RecordNotFoundException>().ToStatusCode(StatusCodes.Status404NotFound);
+            });
+
+            app.Map("/error", x => x.Run(y => throw new Exception()));
+
+            //app.UseGlobalExceptionHandlerMiddleware();
 
             //app.Use(async (context, next) =>
             //{

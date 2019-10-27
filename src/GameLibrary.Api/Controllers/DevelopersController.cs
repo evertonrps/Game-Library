@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
+using GameLibrary.Api.ExceptionHandler;
 using GameLibrary.Api.ViewModels;
 using GameLibrary.Domain.Core;
 using GameLibrary.Domain.Games;
@@ -31,76 +32,29 @@ namespace GameLibrary.Api.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            try
-            {
-                var list = _mapper.Map<IEnumerable<DeveloperViewModel>>(_developerRepository.GetAll());                
-                return Ok(list);
-            }
-            catch (Exception ex)
-            {                
-                return BadRequest(new List<DeveloperViewModel>());
-            }
-
+            var list = _mapper.Map<IEnumerable<DeveloperViewModel>>(_developerRepository.GetAll());
+            return Ok(list);
         }
 
         // GET: api/Developers/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            try
+
+            var dev = _developerRepository.GetById(id);
+
+            if (dev == null)
             {
+                throw new RecordNotFoundException("Registro não encontrado");
+            }
 
             return Ok(_mapper.Map<DeveloperViewModel>(_developerRepository.GetById(id)));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
         }
 
-        // POST: api/Developers
-        //[HttpPost]
-        //public Result<DeveloperViewModel> Post([FromBody] DeveloperViewModel value)
-        //{
-        //    var result = new Result<DeveloperViewModel>();
-        //    //Just for test :)
-        //    try
-        //    {
-        //        var dev = _mapper.Map<Developer>(value);
-        //        if (dev.IsValid())
-        //        {
-        //            var added = _developerRepository.Add(dev);
-        //            if (_uow.Commit().Result > 0)
-        //            {
-        //                result.Item = _mapper.Map<DeveloperViewModel>(added);
-        //                result.StatusCode = HttpStatusCode.Created;
-        //                return result;
-        //            }
-        //            else
-        //            {
-        //                throw new Exception("Falha ao inserir");
-        //            }
-        //        }
-        //        else
-        //        {
-        //            throw new Exception("Falha ao inserir");
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Response.StatusCode = (int)HttpStatusCode.BadRequest;
-        //        value.Id = 0;
-        //        result.StatusCode = HttpStatusCode.BadRequest;
-        //        result.Item = value;
-        //        result.Message = ex.Message;
-        //        return result;
-        //    }
-        //}
 
         [HttpPost]
         public IActionResult Post([FromBody] DeveloperViewModel value)
-        {            
+        {
             try
             {
                 var dev = _mapper.Map<Developer>(value);
@@ -109,7 +63,7 @@ namespace GameLibrary.Api.Controllers
                     var added = _developerRepository.Add(dev);
                     if (_uow.Commit().Result > 0)
                     {
-                        var ret = _mapper.Map<DeveloperViewModel>(added);                        
+                        var ret = _mapper.Map<DeveloperViewModel>(added);
                         return Ok(ret);
                     }
                     else
@@ -158,9 +112,9 @@ namespace GameLibrary.Api.Controllers
         {
             try
             {
-               _developerRepository.Delete(id);
+                _developerRepository.Delete(id);
                 if (_uow.Commit().Result > 0)
-                {                    
+                {
                     return Ok();
                 }
                 else
