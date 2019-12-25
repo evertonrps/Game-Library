@@ -1,14 +1,11 @@
-﻿using System;
+﻿using AutoMapper;
+using GameLibrary.Api.ViewModels;
+using GameLibrary.Domain.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
-using AutoMapper;
-using GameLibrary.Api.ViewModels;
-using GameLibrary.Domain.Core;
-using GameLibrary.Domain.Interfaces;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace GameLibrary.Api.Controllers
 {

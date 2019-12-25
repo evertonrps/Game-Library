@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using GameLibrary.Api.ExceptionHandler;
 using GameLibrary.Api.ViewModels;
-using GameLibrary.Domain.Core;
 using GameLibrary.Domain.Games;
 using GameLibrary.Domain.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 
 namespace GameLibrary.Api.Controllers
 {
@@ -40,7 +35,6 @@ namespace GameLibrary.Api.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-
             var dev = _developerRepository.GetById(id);
 
             if (dev == null)
@@ -50,7 +44,6 @@ namespace GameLibrary.Api.Controllers
 
             return Ok(_mapper.Map<DeveloperViewModel>(_developerRepository.GetById(id)));
         }
-
 
         [HttpPost]
         public IActionResult Post([FromBody] DeveloperViewModel value)
@@ -75,13 +68,13 @@ namespace GameLibrary.Api.Controllers
                 {
                     throw new Exception("Falha ao inserir");
                 }
-
             }
             catch (Exception ex)
             {
                 return BadRequest(new DeveloperViewModel());
             }
         }
+
         // PUT: api/Developers/5
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] DeveloperViewModel value)
@@ -121,7 +114,6 @@ namespace GameLibrary.Api.Controllers
                 {
                     return BadRequest("Falha ao inserir");
                 }
-
             }
             catch (Exception ex)
             {

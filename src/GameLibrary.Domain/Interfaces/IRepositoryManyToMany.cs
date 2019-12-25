@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace GameLibrary.Domain.Interfaces
 {
@@ -11,10 +10,15 @@ namespace GameLibrary.Domain.Interfaces
         IEnumerable<TEntity> GetAll();
 
         TEntity Add(TEntity obj);
-        TEntity GetById(int id);        
+
+        TEntity GetById(int id);
+
         void Update(TEntity obj);
+
         void Delete(int id);
+
         IEnumerable<TEntity> GetByFunc(Expression<Func<TEntity, bool>> predicate);
+
         int SaveChanges();
     }
 }

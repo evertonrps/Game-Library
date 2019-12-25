@@ -2,10 +2,8 @@
 using GameLibrary.Domain.Games;
 using GameLibrary.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace GameLibrary.Data.Repository
 {
@@ -21,7 +19,7 @@ namespace GameLibrary.Data.Repository
 
         public IEnumerable<Platform> GetAll(int gameID)
         {
-            return _context.Platforms.Include(c => c.GamePlatform).Include(c=> c.PlatFormType).Where(x => x.Id == gameID).ToList();            
+            return _context.Platforms.Include(c => c.GamePlatform).Include(c => c.PlatFormType).Where(x => x.Id == gameID).ToList();
         }
     }
 }

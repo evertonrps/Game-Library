@@ -1,6 +1,4 @@
 ﻿using GameLibrary.AutomatedTests.Utils;
-using System;
-using System.Linq;
 using TechTalk.SpecFlow;
 using Xunit;
 
@@ -23,33 +21,32 @@ namespace GameLibrary.AutomatedTests.Developers
             //obj.Click();
             //foreach (var item in lista)
             //{
-
             //}
             //Browser.ClicarLinkPorTexto("Register");
             //Browser.ClicarBotaoPorPath("/html/body/app-root/app-menu-superior/div/div/div/div[2]/ul/li[5]/ul/li[1]/a");
             // ScenarioContext.Current.Pending();
         }
-        
+
         [Given(@"Acessa a tela de cadastro")]
         public void DadoAcessaATelaDeCadastro()
         {
             Browser.ClicarLinkPorTexto("Register");
         }
-        
+
         [Given(@"Preenche os dados do formulario")]
         public void DadoPreencheOsDadosDoFormulario(Table table)
         {
             Browser.PreencherTextBoxPorId(table.Rows[0][0], table.Rows[0][1]);//Name
             Browser.PreencherTextBoxPorId(table.Rows[1][0], table.Rows[1][1]);//Founded
-            Browser.PreencherTextBoxPorId(table.Rows[2][0], table.Rows[2][1]);//Website            
+            Browser.PreencherTextBoxPorId(table.Rows[2][0], table.Rows[2][1]);//Website
         }
-        
+
         [When(@"Clica no botao Cadastrar")]
         public void QuandoClicaNoBotaoCadastrar()
         {
             Browser.ClicarBotaoPorId("register");
         }
-        
+
         [Then(@"Recebe uma mensagem de developer cadastrado  com sucesso")]
         public void EntaoRecebeUmaMensagemDeDeveloperCadastradoComSucesso()
         {
@@ -75,12 +72,10 @@ namespace GameLibrary.AutomatedTests.Developers
             Assert.Equal("Falha ao inserir", text);
         }
 
-
-
         [Then(@"exclui o developer cadastrado")]
         public void EntaoExcluiODeveloperCadastrado()
         {
-           // ScenarioContext.Current.Pending();
+            // ScenarioContext.Current.Pending();
         }
     }
 }

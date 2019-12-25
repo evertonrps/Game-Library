@@ -2,9 +2,6 @@
 using GameLibrary.Domain.Games;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GameLibrary.Data.Mappings
 {

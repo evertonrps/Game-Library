@@ -1,8 +1,5 @@
 ﻿using GameLibrary.Data.Context;
 using GameLibrary.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GameLibrary.Data.UoW
@@ -18,7 +15,7 @@ namespace GameLibrary.Data.UoW
 
         public async Task<int> Commit()
         {
-           return  await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
     }
 }

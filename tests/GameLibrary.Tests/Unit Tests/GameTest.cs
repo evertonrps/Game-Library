@@ -1,16 +1,12 @@
-﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using FluentValidation.Results;
-using System.Text;
-using Xunit;
-using System.Linq;
-using GameLibrary.Tests.Builders;
+﻿using Bogus;
 using ExpectedObjects;
-using Bogus;
-using GameLibrary.Domain;
-using GameLibrary.Domain.Games;
+using FluentValidation.Results;
 using GameLibrary.Domain.Core.Resources;
+using GameLibrary.Domain.Games;
+using GameLibrary.Tests.Builders;
+using System.Collections.Generic;
+using System.Linq;
+using Xunit;
 
 namespace GameLibrary.Tests.Unit_Tests
 {
@@ -25,7 +21,7 @@ namespace GameLibrary.Tests.Unit_Tests
             var fake = new Faker();
             _title = fake.Lorem.Text();
             _description = fake.Lorem.Paragraphs(2);
-            _DeveloperId = fake.Random.Int(1,10000);
+            _DeveloperId = fake.Random.Int(1, 10000);
         }
 
         [Fact]
@@ -38,7 +34,7 @@ namespace GameLibrary.Tests.Unit_Tests
                 DeveloperId = _DeveloperId
             };
 
-            var game = new Game(expectedGame.Title, expectedGame.Description, expectedGame.DeveloperId );
+            var game = new Game(expectedGame.Title, expectedGame.Description, expectedGame.DeveloperId);
 
             expectedGame.ToExpectedObject().ShouldMatch(game);
         }
@@ -49,7 +45,7 @@ namespace GameLibrary.Tests.Unit_Tests
         [InlineData("E")]
         public void Game_CreateGameWithoutTitle_ReturnFail(string p)
         {
-            //Arrange                        
+            //Arrange
             var ret = GameBuilder.Create().SetTitle(p).Build();
 
             //Act

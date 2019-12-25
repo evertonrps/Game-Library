@@ -12,6 +12,7 @@ namespace GameLibrary.BDD.Tests.Utils
              */
 
         private readonly IConfiguration config;
+
         public ConfigurationHelper()
         {
             var builder = new ConfigurationBuilder()
@@ -21,25 +22,25 @@ namespace GameLibrary.BDD.Tests.Utils
             config = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", true, true)
                 .Build();
-
         }
 
         public static ConfigurationHelper Build()
         {
             return new ConfigurationHelper();
         }
-        public  string BaseUrl => config["BaseUrl"];
 
-        public  string HomeUrl => config["HomeUrl"];
+        public string BaseUrl => config["BaseUrl"];
 
-        public  string RegisterUrl => string.Format("{0}{1}", BaseUrl, config["RegisterUrl"]);
+        public string HomeUrl => config["HomeUrl"];
 
-        public  string LoginUrl => string.Format("{0}{1}", BaseUrl, config["LoginUrl"]);
+        public string RegisterUrl => string.Format("{0}{1}", BaseUrl, config["RegisterUrl"]);
+
+        public string LoginUrl => string.Format("{0}{1}", BaseUrl, config["LoginUrl"]);
 
         public string ChromeDriver => string.Format("{0}", config["ChromeDriver"]);
 
-        public  string FolderPath => Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
+        public string FolderPath => Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
 
-        public  string FolderPicture => string.Format("{0}{1}", FolderPath, config["FolderPicture"]);
+        public string FolderPicture => string.Format("{0}{1}", FolderPath, config["FolderPicture"]);
     }
 }

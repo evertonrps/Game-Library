@@ -28,7 +28,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:8081"
+      "applicationUrl": "http://localhost"
     },
     "IIS Local": {
       "commandName": "IIS",

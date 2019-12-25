@@ -1,8 +1,6 @@
 ﻿using Bogus;
 using GameLibrary.Domain.Games;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GameLibrary.Tests.Builders
 {
@@ -11,6 +9,7 @@ namespace GameLibrary.Tests.Builders
         private string _name;
         private DateTime _founded;
         private string _webSite;
+
         public DeveloperBuilder()
         {
             var fake = new Faker();
@@ -35,7 +34,6 @@ namespace GameLibrary.Tests.Builders
             _founded = founded;
             return this;
         }
-
 
         public DeveloperBuilder SetWebSite(string webSite)
         {
