@@ -1,15 +1,15 @@
 ﻿using FluentValidation;
 using GameLibrary.Domain.Core;
 using GameLibrary.Domain.Core.Resources;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace GameLibrary.Domain.Games
 {
     public class PlatformType : Entity<PlatformType>
     {
-        public PlatformType(){}
+        public PlatformType()
+        {
+        }
 
         public PlatformType(string description)
         {
@@ -19,7 +19,6 @@ namespace GameLibrary.Domain.Games
         public string Description { get; private set; }
 
         public virtual ICollection<Platform> Platforms { get; set; }
-        
 
         public override bool IsValid()
         {

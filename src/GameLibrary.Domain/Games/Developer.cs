@@ -3,21 +3,21 @@ using GameLibrary.Domain.Core;
 using GameLibrary.Domain.Core.Resources;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace GameLibrary.Domain.Games
 {
     public class Developer : Entity<Developer>
     {
         public string Name { get; private set; }
-        public  DateTime Founded‎ { get; set; }
+        public DateTime Founded‎ { get; set; }
 
         public string WebSite { get; private set; }
 
         public virtual ICollection<Game> Games { get; set; }
 
-        protected Developer() { }
-                
+        protected Developer()
+        {
+        }
 
         public Developer(string name, DateTime founded, string webSite)
         {
@@ -48,7 +48,6 @@ namespace GameLibrary.Domain.Games
             .NotEmpty().WithMessage(Messages.DeveloperFoundedEmpty)
             .GreaterThan(DateTime.MinValue).WithMessage(Messages.DeveloperFoundedInvalid)
             .LessThan(DateTime.Now).WithMessage(Messages.DeveloperFoundedInvalid);
-        
         }
     }
 }

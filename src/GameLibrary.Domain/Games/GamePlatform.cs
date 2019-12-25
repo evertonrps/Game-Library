@@ -1,13 +1,12 @@
 ﻿using GameLibrary.Domain.Core;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GameLibrary.Domain.Games
 {
-    public class GamePlatform :EntityMany<GamePlatform>
+    public class GamePlatform : EntityMany<GamePlatform>
     {
-        public GamePlatform() {  }
+        public GamePlatform()
+        {
+        }
 
         public int GameId { get; set; }
 
@@ -21,6 +20,7 @@ namespace GameLibrary.Domain.Games
 
         //EF
         public virtual Game Game { get; set; }
+
         public virtual Platform Platform { get; set; }
     }
 }

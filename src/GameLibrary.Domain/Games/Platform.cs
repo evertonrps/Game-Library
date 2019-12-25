@@ -1,15 +1,15 @@
 ﻿using FluentValidation;
 using GameLibrary.Domain.Core;
 using GameLibrary.Domain.Core.Resources;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace GameLibrary.Domain.Games
 {
     public class Platform : Entity<Platform>
     {
-        public Platform() { }
+        public Platform()
+        {
+        }
 
         public Platform(string description, int plataformTypeId)
         {
@@ -40,7 +40,7 @@ namespace GameLibrary.Domain.Games
                 .Length(2, 150).WithMessage(Messages.GameTitleInvalid);
         }
 
-        //EF 
+        //EF
         public virtual PlatformType PlatFormType { get; private set; }
 
         public virtual ICollection<GamePlatform> GamePlatform { get; set; }

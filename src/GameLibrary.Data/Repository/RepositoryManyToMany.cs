@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace GameLibrary.Data.Repository
 {
@@ -26,6 +25,7 @@ namespace GameLibrary.Data.Repository
             DbSet.Add(obj);
             return obj;
         }
+
         public virtual void AddList(IEnumerable<TEntity> obj)
         {
             DbSet.AddRange(obj);

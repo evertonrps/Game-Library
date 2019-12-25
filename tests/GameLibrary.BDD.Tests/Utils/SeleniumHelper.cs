@@ -27,8 +27,8 @@ namespace GameLibrary.BDD.Tests.Utils
         {
             ChromeOptions options = new ChromeOptions();
             options.AddArguments("start-maximized");
-            options.AddArguments("--disable-popup-blocking"); 
-            string chromedriverPath = configurationHelper.ChromeDriver.Replace("/","\\");
+            options.AddArguments("--disable-popup-blocking");
+            string chromedriverPath = configurationHelper.ChromeDriver.Replace("/", "\\");
             CD = new ChromeDriver(chromedriverPath, options);
             Wait = new WebDriverWait(CD, TimeSpan.FromSeconds(5));
         }
@@ -136,6 +136,5 @@ namespace GameLibrary.BDD.Tests.Utils
         {
             Thread.Sleep(tempo);
         }
-
     }
 }

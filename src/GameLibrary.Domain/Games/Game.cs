@@ -1,9 +1,7 @@
 ﻿using FluentValidation;
 using GameLibrary.Domain.Core;
 using GameLibrary.Domain.Core.Resources;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace GameLibrary.Domain.Games
 {
@@ -15,14 +13,15 @@ namespace GameLibrary.Domain.Games
 
         public Game()
         {
-
         }
+
         public Game(string title, string _description, int _DeveloperId)
         {
             Title = title;
             Description = _description;
             DeveloperId = _DeveloperId;
         }
+
         public override bool IsValid()
         {
             Validate();
@@ -33,7 +32,7 @@ namespace GameLibrary.Domain.Games
         {
             ValidateTitle();
             ValidationResult = Validate(this);
-           // ValidateDeveloper();
+            // ValidateDeveloper();
         }
 
         //private void ValidateDeveloper()

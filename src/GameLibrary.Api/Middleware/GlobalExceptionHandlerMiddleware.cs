@@ -2,14 +2,13 @@
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
 namespace GameLibrary.Api.Middleware
 {
     /*https://www.wellingtonjhn.com/posts/tratamento-global-de-exceptions-no-asp.net-core/*/
+
     public class GlobalExceptionHandlerMiddleware : IMiddleware
     {
         private readonly ILogger<GlobalExceptionHandlerMiddleware> _logger;

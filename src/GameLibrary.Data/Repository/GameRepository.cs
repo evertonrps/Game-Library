@@ -2,10 +2,8 @@
 using GameLibrary.Domain.Games;
 using GameLibrary.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace GameLibrary.Data.Repository
 {
@@ -23,6 +21,7 @@ namespace GameLibrary.Data.Repository
         {
             return _context.Games.Include(c => c.GamePlatform).ThenInclude(c => c.Platform).ToList();
         }
+
         public dynamic ObterGameCompletoPorID(int id)
         {
             var gamePlataformass = (from gp in _context.Set<GamePlatform>() where gp.GameId == id select gp).ToList();
@@ -33,7 +32,8 @@ namespace GameLibrary.Data.Repository
                           join p in _context.Set<Platform>() on gp.PlatformId equals p.Id
                           join pt in _context.Set<PlatformType>() on p.PlatformTypeId equals pt.Id
                           where g.Id == id
-                          select new {
+                          select new
+                          {
                               Id = g.Id,
                               Title = g.Title,
                               Description = g.Description,

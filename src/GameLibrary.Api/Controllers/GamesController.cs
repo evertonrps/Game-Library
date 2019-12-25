@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using GameLibrary.Api.ViewModels;
-using GameLibrary.Domain.Core;
 using GameLibrary.Domain.Games;
 using GameLibrary.Domain.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace GameLibrary.Api.Controllers
 {
@@ -31,6 +27,7 @@ namespace GameLibrary.Api.Controllers
             _mapper = mapper;
             _uow = uow;
         }
+
         // GET: api/Games
         [HttpGet]
         public IActionResult Get()
@@ -51,11 +48,10 @@ namespace GameLibrary.Api.Controllers
                 return Ok(result);
             }
             catch (Exception ex)
-            {                
+            {
                 return BadRequest(ex.Message);
             }
         }
-
 
         // GET: api/Games/5
         [HttpGet("{id}")]
@@ -66,7 +62,7 @@ namespace GameLibrary.Api.Controllers
                 var gameEntity = _gameRepository.ObterGameCompletoPorID(id);
                 return Ok(gameEntity);
             }
-                catch (Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -112,11 +108,11 @@ namespace GameLibrary.Api.Controllers
                 }
                 _gamePlatformRepository.DeleteByGameID(id);
                 var dev = _mapper.Map<Game>(value);
-                _gamePlatformRepository.AddList(dev.GamePlatform);                
+                _gamePlatformRepository.AddList(dev.GamePlatform);
                 _gameRepository.Update(dev);
                 if (_uow.Commit().Result > 0)
                 {
-                    result = _mapper.Map<GameViewModel>(dev);                    
+                    result = _mapper.Map<GameViewModel>(dev);
                     return Ok(result);
                 }
                 else
