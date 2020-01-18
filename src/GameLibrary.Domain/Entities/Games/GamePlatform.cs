@@ -1,6 +1,6 @@
 ﻿using GameLibrary.Domain.Core;
 
-namespace GameLibrary.Domain.Games
+namespace GameLibrary.Domain.Entities.Games
 {
     public class GamePlatform : EntityMany<GamePlatform>
     {

@@ -1,6 +1,6 @@
 ﻿using GameLibrary.Data.Context;
-using GameLibrary.Domain.Games;
-using GameLibrary.Domain.Interfaces;
+using GameLibrary.Domain.Entities.Games;
+using GameLibrary.Domain.Interfaces.Repositories;
 
 namespace GameLibrary.Data.Repository
 {

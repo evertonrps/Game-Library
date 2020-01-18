@@ -2,7 +2,7 @@
 using ExpectedObjects;
 using FluentValidation.Results;
 using GameLibrary.Domain.Core.Resources;
-using GameLibrary.Domain.Games;
+using GameLibrary.Domain.Entities.Games;
 using GameLibrary.Tests.Builders;
 using System.Collections.Generic;
 using System.Linq;

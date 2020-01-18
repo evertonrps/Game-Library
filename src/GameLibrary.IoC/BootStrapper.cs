@@ -2,7 +2,7 @@
 using GameLibrary.Data.Context;
 using GameLibrary.Data.Repository;
 using GameLibrary.Data.UoW;
-using GameLibrary.Domain.Interfaces;
+using GameLibrary.Domain.Interfaces.Repositories;
 
 //using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;

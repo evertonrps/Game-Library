@@ -1,5 +1,5 @@
 ﻿using Bogus;
-using GameLibrary.Domain.Games;
+using GameLibrary.Domain.Entities.Games;
 
 namespace GameLibrary.Tests.Builders
 {

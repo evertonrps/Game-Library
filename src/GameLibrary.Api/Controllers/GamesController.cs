@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using GameLibrary.Api.ViewModels;
-using GameLibrary.Domain.Games;
-using GameLibrary.Domain.Interfaces;
+using GameLibrary.Domain.Entities.Games;
+using GameLibrary.Domain.Interfaces.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

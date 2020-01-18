@@ -15,14 +15,15 @@ namespace GameLibrary.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "3.1.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("GameLibrary.Domain.Games.Developer", b =>
+            modelBuilder.Entity("GameLibrary.Domain.Entities.Games.Developer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("Founded")
@@ -40,17 +41,19 @@ namespace GameLibrary.Data.Migrations
                     b.ToTable("Developers");
                 });
 
-            modelBuilder.Entity("GameLibrary.Domain.Games.Game", b =>
+            modelBuilder.Entity("GameLibrary.Domain.Entities.Games.Game", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
                         .HasColumnType("varchar(max)")
                         .HasMaxLength(150);
 
-                    b.Property<int>("DeveloperId");
+                    b.Property<int>("DeveloperId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -64,11 +67,13 @@ namespace GameLibrary.Data.Migrations
                     b.ToTable("Games");
                 });
 
-            modelBuilder.Entity("GameLibrary.Domain.Games.GamePlatform", b =>
+            modelBuilder.Entity("GameLibrary.Domain.Entities.Games.GamePlatform", b =>
                 {
-                    b.Property<int>("GameId");
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
 
-                    b.Property<int>("PlatformId");
+                    b.Property<int>("PlatformId")
+                        .HasColumnType("int");
 
                     b.HasKey("GameId", "PlatformId");
 
@@ -77,17 +82,19 @@ namespace GameLibrary.Data.Migrations
                     b.ToTable("GamePlatforms");
                 });
 
-            modelBuilder.Entity("GameLibrary.Domain.Games.Platform", b =>
+            modelBuilder.Entity("GameLibrary.Domain.Entities.Games.Platform", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("varchar(150)");
 
-                    b.Property<int>("PlatformTypeId");
+                    b.Property<int>("PlatformTypeId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -96,10 +103,11 @@ namespace GameLibrary.Data.Migrations
                     b.ToTable("Platforms");
                 });
 
-            modelBuilder.Entity("GameLibrary.Domain.Games.PlatformType", b =>
+            modelBuilder.Entity("GameLibrary.Domain.Entities.Games.PlatformType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
@@ -111,33 +119,73 @@ namespace GameLibrary.Data.Migrations
                     b.ToTable("PlatformTypes");
                 });
 
-            modelBuilder.Entity("GameLibrary.Domain.Games.Game", b =>
+            modelBuilder.Entity("GameLibrary.Domain.Entities.Usuario.Usuario", b =>
                 {
-                    b.HasOne("GameLibrary.Domain.Games.Developer", "Developer")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Bloqueado")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("DataUltimoAcesso")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(150);
+
+                    b.Property<string>("NomeUsuario")
+                        .IsRequired()
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<string>("SenhaHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Tentativas")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("GameLibrary.Domain.Entities.Games.Game", b =>
+                {
+                    b.HasOne("GameLibrary.Domain.Entities.Games.Developer", "Developer")
                         .WithMany("Games")
                         .HasForeignKey("DeveloperId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("GameLibrary.Domain.Games.GamePlatform", b =>
+            modelBuilder.Entity("GameLibrary.Domain.Entities.Games.GamePlatform", b =>
                 {
-                    b.HasOne("GameLibrary.Domain.Games.Game")
+                    b.HasOne("GameLibrary.Domain.Entities.Games.Game", "Game")
                         .WithMany("GamePlatform")
                         .HasForeignKey("GameId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("GameLibrary.Domain.Games.Platform")
+                    b.HasOne("GameLibrary.Domain.Entities.Games.Platform", null)
                         .WithMany("GamePlatform")
                         .HasForeignKey("PlatformId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("GameLibrary.Domain.Games.Platform", b =>
+            modelBuilder.Entity("GameLibrary.Domain.Entities.Games.Platform", b =>
                 {
-                    b.HasOne("GameLibrary.Domain.Games.PlatformType", "PlatFormType")
+                    b.HasOne("GameLibrary.Domain.Entities.Games.PlatformType", "PlatFormType")
                         .WithMany("Platforms")
                         .HasForeignKey("PlatformTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

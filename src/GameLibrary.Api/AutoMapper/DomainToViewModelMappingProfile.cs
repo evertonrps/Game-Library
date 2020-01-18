@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using GameLibrary.Api.ViewModels;
-using GameLibrary.Domain.Games;
+using GameLibrary.Domain.Entities.Games;
 
 namespace GameLibrary.Api.AutoMapper
 {

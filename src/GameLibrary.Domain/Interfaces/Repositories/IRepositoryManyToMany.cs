@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace GameLibrary.Domain.Interfaces
+namespace GameLibrary.Domain.Interfaces.Repositories
 {
     public interface IRepository<TEntity> : IDisposable where TEntity : Entity<TEntity>
     {

@@ -1,5 +1,5 @@
 ﻿using GameLibrary.Data.Extensions;
-using GameLibrary.Domain.Games;
+using GameLibrary.Domain.Entities.Games;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

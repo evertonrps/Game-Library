@@ -3,7 +3,7 @@ using GameLibrary.Domain.Core;
 using GameLibrary.Domain.Core.Resources;
 using System.Collections.Generic;
 
-namespace GameLibrary.Domain.Games
+namespace GameLibrary.Domain.Entities.Games
 {
     public class Game : Entity<Game>
     {
