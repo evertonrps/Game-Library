@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using GameLibrary.Api.ViewModels;
-using GameLibrary.Domain.Games;
-using GameLibrary.Domain.Interfaces;
+using GameLibrary.Domain.Entities.Games;
+using GameLibrary.Domain.Interfaces.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Linq;
 
 namespace GameLibrary.Api.Controllers
 {
+    [Authorize]
     [Route("api/games")]
     [ApiController]
     public class GamesController : ControllerBase

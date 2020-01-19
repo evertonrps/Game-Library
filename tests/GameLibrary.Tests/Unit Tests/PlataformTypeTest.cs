@@ -1,5 +1,5 @@
 ﻿using ExpectedObjects;
-using GameLibrary.Domain.Games;
+using GameLibrary.Domain.Entities.Games;
 using Xunit;
 
 namespace GameLibrary.Tests.Unit_Tests

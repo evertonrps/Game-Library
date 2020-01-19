@@ -2,7 +2,9 @@
 using GameLibrary.Data.Context;
 using GameLibrary.Data.Repository;
 using GameLibrary.Data.UoW;
-using GameLibrary.Domain.Interfaces;
+using GameLibrary.Domain.Interfaces.Repositories;
+using GameLibrary.Domain.Interfaces.Services;
+using GameLibrary.Domain.Services;
 
 //using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +25,8 @@ namespace GameLibrary.IoC
             services.AddScoped(typeof(IPlatformRepository), typeof(PlatformRepository));
             services.AddScoped(typeof(IPlatformTypeRepository), typeof(PlatformTypeRepository));
             services.AddScoped(typeof(IGamePlatformRepository), typeof(GamePlatformRepository));
+            services.AddScoped(typeof(IUsuarioRepository), typeof(UsuarioRepository));
+            services.AddScoped(typeof(ITokenService), typeof(TokenService));
             services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
         }
     }

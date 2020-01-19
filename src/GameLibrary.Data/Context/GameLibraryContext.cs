@@ -1,6 +1,7 @@
 ﻿using GameLibrary.Data.Extensions;
 using GameLibrary.Data.Mappings;
-using GameLibrary.Domain.Games;
+using GameLibrary.Domain.Entities.Games;
+using GameLibrary.Domain.Entities.Usuario;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.IO;
@@ -14,6 +15,7 @@ namespace GameLibrary.Data.Context
         public DbSet<Platform> Platforms { get; set; }
         public DbSet<PlatformType> PlatformTypes { get; set; }
         public DbSet<GamePlatform> GamePlatforms { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,6 +24,7 @@ namespace GameLibrary.Data.Context
             modelBuilder.AddConfiguration(new PlatformMapping());
             modelBuilder.AddConfiguration(new PlatformTypeMapping());
             modelBuilder.AddConfiguration(new GamePlatformMapping());
+            modelBuilder.AddConfiguration(new UsuarioMapping());
 
             base.OnModelCreating(modelBuilder);
         }

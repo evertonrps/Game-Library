@@ -1,11 +1,12 @@
 ﻿using GameLibrary.Data.Context;
 using GameLibrary.Domain.Core;
-using GameLibrary.Domain.Interfaces;
+using GameLibrary.Domain.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace GameLibrary.Data.Repository
 {
@@ -34,6 +35,34 @@ namespace GameLibrary.Data.Repository
         public virtual void Dispose()
         {
             Db.Dispose();
+        }
+
+        public virtual async Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> match, string include = null)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(include))
+                    return await DbSet.SingleOrDefaultAsync(match);
+                else
+                //Include
+                {
+                    var args = include.Split(',');
+                    TEntity entidade = null;
+                    foreach (var item in args)
+                    {
+                        if (!string.IsNullOrEmpty(item.Trim()))
+                        {
+                            entidade = await DbSet.Include(item.Trim()).SingleOrDefaultAsync(match);
+                        }
+                    }
+                    return entidade;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         public virtual IEnumerable<TEntity> GetAll()

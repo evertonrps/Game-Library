@@ -1,7 +1,7 @@
 ﻿using ExpectedObjects;
 using FluentValidation.Results;
 using GameLibrary.Domain.Core.Resources;
-using GameLibrary.Domain.Games;
+using GameLibrary.Domain.Entities.Games;
 using GameLibrary.Tests.Builders;
 using Newtonsoft.Json;
 using System;
@@ -28,9 +28,9 @@ namespace GameLibrary.Tests.Unit_Tests
         {
             var expectedDeveloper = new { Name = "Nintendo", Founded = DateTime.Now.Date, WebSite = "www.nintendo.com" };
 
-            var Developer = new Developer(expectedDeveloper.Name, expectedDeveloper.Founded, expectedDeveloper.WebSite);
+            var developer = new Developer(expectedDeveloper.Name, expectedDeveloper.Founded, expectedDeveloper.WebSite);
 
-            expectedDeveloper.ToExpectedObject().ShouldMatch(Developer);
+            expectedDeveloper.ToExpectedObject().ShouldMatch(developer);
         }
 
         [Fact]

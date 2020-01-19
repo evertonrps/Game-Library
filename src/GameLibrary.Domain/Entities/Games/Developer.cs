@@ -4,7 +4,7 @@ using GameLibrary.Domain.Core.Resources;
 using System;
 using System.Collections.Generic;
 
-namespace GameLibrary.Domain.Games
+namespace GameLibrary.Domain.Entities.Games
 {
     public class Developer : Entity<Developer>
     {

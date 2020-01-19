@@ -1,6 +1,6 @@
 ﻿using GameLibrary.Data.Context;
 using GameLibrary.Domain.Core;
-using GameLibrary.Domain.Interfaces;
+using GameLibrary.Domain.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

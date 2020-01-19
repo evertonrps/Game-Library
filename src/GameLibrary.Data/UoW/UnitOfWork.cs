@@ -1,5 +1,5 @@
 ﻿using GameLibrary.Data.Context;
-using GameLibrary.Domain.Interfaces;
+using GameLibrary.Domain.Interfaces.Repositories;
 using System.Threading.Tasks;
 
 namespace GameLibrary.Data.UoW
