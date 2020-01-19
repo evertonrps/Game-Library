@@ -3,12 +3,14 @@ using GameLibrary.Api.ExceptionHandler;
 using GameLibrary.Api.ViewModels;
 using GameLibrary.Domain.Entities.Games;
 using GameLibrary.Domain.Interfaces.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 
 namespace GameLibrary.Api.Controllers
 {
+    [Authorize]
     [Route("api/developers")]
     [ApiController]
     public class DevelopersController : ControllerBase

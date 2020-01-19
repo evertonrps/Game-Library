@@ -4,14 +4,16 @@ using GameLibrary.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GameLibrary.Data.Migrations
 {
     [DbContext(typeof(GameLibraryContext))]
-    partial class GameLibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20200118214238_CPF")]
+    partial class CPF
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

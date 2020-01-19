@@ -8,13 +8,14 @@ namespace GameLibrary.Domain.Entities.Usuario
 
         public string NomeUsuario { get; private set; }
         public string Email { get; private set; }
+        public string CPF { get; private set; }
         public string SenhaHash { get; private set; }
         public DateTime? DataUltimoAcesso { get; private set; }
         public bool Bloqueado { get; private set; }
         public int? Tentativas { get; private set; }
         public bool Ativo { get; private set; }
 
-        private Usuario(string nomeUsuario, string email, string senhaHash, bool ativo, DateTime? dataUltimoAcesso, bool bloqueado, int? tentativas)
+        private Usuario(string nomeUsuario, string email, string cpf, string senhaHash, bool ativo, DateTime? dataUltimoAcesso, bool bloqueado, int? tentativas)
         {
             NomeUsuario = nomeUsuario;
             Email = email;
@@ -23,6 +24,7 @@ namespace GameLibrary.Domain.Entities.Usuario
             DataUltimoAcesso = dataUltimoAcesso;
             Bloqueado = bloqueado;
             Tentativas = tentativas;
+            CPF = cpf;
         }
 
         protected Usuario()
@@ -30,9 +32,9 @@ namespace GameLibrary.Domain.Entities.Usuario
 
         }
 
-        public static Usuario Factory(string nomeUsuario, string email, string senhaHash, bool ativo, DateTime? dataUltimoAcesso, bool bloqueado, int? tentativas)
+        public static Usuario Factory(string nomeUsuario, string email, string cpf, string senhaHash, bool ativo, DateTime? dataUltimoAcesso, bool bloqueado, int? tentativas)
         {
-            Usuario usuario = new Usuario(nomeUsuario, email, senhaHash, ativo, dataUltimoAcesso, bloqueado, tentativas);
+            Usuario usuario = new Usuario(nomeUsuario, email, cpf, senhaHash, ativo, dataUltimoAcesso, bloqueado, tentativas);
             //usuario.Validate(new Usua);
             return usuario;
         }

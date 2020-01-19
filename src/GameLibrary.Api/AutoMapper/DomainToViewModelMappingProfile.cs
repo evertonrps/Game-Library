@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using GameLibrary.Api.ViewModels;
 using GameLibrary.Domain.Entities.Games;
+using GameLibrary.Domain.Entities.Token;
+using GameLibrary.Domain.Entities.Usuario;
 
 namespace GameLibrary.Api.AutoMapper
 {
@@ -13,6 +15,7 @@ namespace GameLibrary.Api.AutoMapper
             CreateMap<PlatformType, PlatformTypeViewModel>();
             CreateMap<Platform, PlatformViewModel>();
             CreateMap<GamePlatform, GamePlatformViewModel>();
+            CreateMap<AccessTokenCredentials, AccessCredentialsViewModel>();            
         }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace GameLibrary.Domain.Interfaces.Repositories
 {
@@ -18,6 +19,7 @@ namespace GameLibrary.Domain.Interfaces.Repositories
         void Delete(int id);
 
         IEnumerable<TEntity> GetByFunc(Expression<Func<TEntity, bool>> predicate);
+        Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> match, string include = null);
 
         int SaveChanges();
     }

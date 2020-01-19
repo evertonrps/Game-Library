@@ -14,6 +14,10 @@ namespace GameLibrary.Data.Mappings
 
             builder.Property(c => c.Email).HasMaxLength(150).IsRequired();
 
+            builder.Property(c => c.CPF).HasMaxLength(11).IsRequired();
+
+            builder.Property(c => c.SenhaHash).HasMaxLength(255).IsRequired();
+
             builder.Ignore(e => e.ValidationResult);
 
             builder.Ignore(e => e.CascadeMode);
