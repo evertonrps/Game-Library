@@ -20,16 +20,14 @@ namespace GameLibrary.Domain.Services
     public class TokenService : ITokenService
     {
         private readonly IUsuarioRepository _usuarioRepository;
-        private readonly TokenConfigurations _tokenConfigurations;
-        private readonly SigningConfigurations _signingConfigurations;
         private readonly IOptions<AppSettings> _configuration;
+        private readonly IDistributedCache _cache;
 
-        public TokenService(IUsuarioRepository usuarioRepository, IOptions<AppSettings> configuration)
+        public TokenService(IUsuarioRepository usuarioRepository, IOptions<AppSettings> configuration, IDistributedCache cache)
         {
             _usuarioRepository = usuarioRepository;
-            _tokenConfigurations = new TokenConfigurations();
-            _signingConfigurations = new SigningConfigurations();
             _configuration = configuration;
+            _cache = cache;
         }
 
         public async Task<bool> ValidateCredentials(AccessTokenCredentials credenciais)
@@ -45,39 +43,32 @@ namespace GameLibrary.Domain.Services
                     {
                         // Validar senha
                         ///TODO implementar hash de validação
-                        var resultadoLogin = usuario.SenhaHash == credenciais.Password;
-                        if (resultadoLogin)
-                        {
-                            credenciaisValidas = true;
-                            // Verifica se o usuário em questão possui
-                            // a role Acesso-APIProdutos
-                            //credenciaisValidas = _userManager.IsInRoleAsync(
-                            //    userIdentity, Roles.ROLE_API_PRODUTOS).Result;
-                        }
+                        return usuario.SenhaHash == credenciais.Password;
+
                     }
                 }
                 else if (credenciais.GrantType == "refresh_token")
                 {
-                    //if (!String.IsNullOrWhiteSpace(credenciais.RefreshToken))
-                    //{
-                    //    RefreshTokenData refreshTokenBase = null;
+                    if (!string.IsNullOrWhiteSpace(credenciais.RefreshToken))
+                    {
+                        RefreshTokenData refreshTokenBase = null;
 
-                    //    string strTokenArmazenado = _cache.GetString(credenciais.RefreshToken);
+                        string strTokenArmazenado = _cache.GetString(credenciais.RefreshToken);
 
-                    //    if (!String.IsNullOrWhiteSpace(strTokenArmazenado))
-                    //    {
-                    //        refreshTokenBase = JsonConvert
-                    //            .DeserializeObject<RefreshTokenData>(strTokenArmazenado);
-                    //    }
+                        if (!string.IsNullOrWhiteSpace(strTokenArmazenado))
+                        {
+                            refreshTokenBase = JsonConvert
+                                .DeserializeObject<RefreshTokenData>(strTokenArmazenado);
+                        }
 
-                    //    credenciaisValidas = (refreshTokenBase != null &&
-                    //        credenciais.CPF == refreshTokenBase.CPF &&
-                    //        credenciais.RefreshToken == refreshTokenBase.RefreshToken);
+                        credenciaisValidas = (refreshTokenBase != null &&
+                            credenciais.UserID == refreshTokenBase.UserID &&
+                            credenciais.RefreshToken == refreshTokenBase.RefreshToken);
 
-                    //    // Elimina o token de refresh já que um novo será gerado
-                    //    if (credenciaisValidas)
-                    //        _cache.Remove(credenciais.RefreshToken);
-                    //}
+                        // Elimina o token de refresh já que um novo será gerado
+                        if (credenciaisValidas)
+                            _cache.Remove(credenciais.RefreshToken);
+                    }
                 }
             }
 
@@ -99,9 +90,7 @@ namespace GameLibrary.Domain.Services
                 {
                     Subject = new ClaimsIdentity(new Claim[]
                     {
-                          //new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
-                          //new Claim(JwtRegisteredClaimNames.UniqueName, credenciais.UserID),
-                          new Claim(ClaimTypes.Name, credenciais.CPF.ToString())
+                          new Claim("CPF", credenciais.CPF.ToString())
                     }),
                     NotBefore = dataCriacao,
                     Expires = dataExpiracao,
@@ -121,6 +110,24 @@ namespace GameLibrary.Domain.Services
                     Message = "OK"
                 };
 
+                // Armazena o refresh token em cache através do Redis 
+                var refreshTokenData = new RefreshTokenData();
+                refreshTokenData.RefreshToken = resultado.RefreshToken;
+                refreshTokenData.UserID = credenciais.UserID;
+
+
+                // Calcula o tempo máximo de validade do refresh token
+                // (o mesmo será invalidado automaticamente pelo Redis)
+                TimeSpan finalExpiration =
+                    TimeSpan.FromMinutes(_configuration.Value.FinalExpiration);
+
+                DistributedCacheEntryOptions opcoesCache =
+                    new DistributedCacheEntryOptions();
+                opcoesCache.SetAbsoluteExpiration(finalExpiration);
+                _cache.SetString(resultado.RefreshToken,
+                    JsonConvert.SerializeObject(refreshTokenData),
+                    opcoesCache);
+
 
                 return resultado;
             }
@@ -129,22 +136,6 @@ namespace GameLibrary.Domain.Services
 
                 throw ex;
             }
-        }
-    }
-    public class SigningConfigurations
-    {
-        public SecurityKey Key { get; }
-        public SigningCredentials SigningCredentials { get; }
-
-        public SigningConfigurations()
-        {
-            using (var provider = new RSACryptoServiceProvider(2048))
-            {
-                Key = new RsaSecurityKey(provider.ExportParameters(true));
-            }
-
-            SigningCredentials = new SigningCredentials(
-                Key, SecurityAlgorithms.RsaSha256Signature);
         }
     }
 }

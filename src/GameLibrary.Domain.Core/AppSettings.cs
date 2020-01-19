@@ -9,5 +9,6 @@ namespace GameLibrary.Domain.Core
     {
         public string Secret { get; set; }
         public double SecurityTokenExpirationMinutesParameter { get; set; }
+        public double FinalExpiration { get; set; }
     }
 }

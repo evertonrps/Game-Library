@@ -33,6 +33,14 @@ namespace GameLibrary.Api
             services.AddCors();
             services.AddControllers();
 
+            // Ativando o uso de cache via Redis
+            services.AddDistributedRedisCache(options =>
+            {
+                options.Configuration =
+                    Configuration.GetConnectionString("ConexaoRedis");
+                options.InstanceName = "GameLibraryAPI:";
+            });
+
             // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
@@ -84,7 +92,6 @@ namespace GameLibrary.Api
                           Scheme = "oauth2",
                           Name = "Bearer",
                           In = ParameterLocation.Header,
-
                         },
                         new List<string>()
                       }
@@ -128,7 +135,6 @@ namespace GameLibrary.Api
             {
                 endpoints.MapControllers();
             });
-
 
             app.UseSwaggerUI(c =>
             {
