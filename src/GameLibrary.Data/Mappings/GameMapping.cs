@@ -23,9 +23,11 @@ namespace GameLibrary.Data.Mappings
             .WithMany(y => y.Games)
             .HasForeignKey(c => c.DeveloperId);
 
-            builder.Ignore(e => e.ValidationResult);
+            //builder.Ignore(e => e.ValidationResult);
 
-            builder.Ignore(e => e.CascadeMode);
+            //builder.Ignore(e => e.CascadeMode);
+
+            builder.Ignore(e => e.Erros);
 
             builder.ToTable("Games");
         }

@@ -15,9 +15,11 @@ namespace GameLibrary.Data.Mappings
             .WithMany(y => y.Platforms)
             .HasForeignKey(c => c.PlatformTypeId);
 
-            builder.Ignore(e => e.ValidationResult);
+            //builder.Ignore(e => e.ValidationResult);
 
-            builder.Ignore(e => e.CascadeMode);
+            //builder.Ignore(e => e.CascadeMode);
+
+            builder.Ignore(e => e.Erros);
 
             builder.Ignore(e => e.GamePlatform);
 

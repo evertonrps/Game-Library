@@ -19,35 +19,18 @@ namespace GameLibrary.Domain.Entities.Games
         {
         }
 
-        public Developer(string name, DateTime founded, string webSite)
+        private Developer(string name, DateTime founded, string webSite)
         {
             Name = name;
             Founded = founded;
             WebSite = webSite;
         }
 
-        public override bool IsValid()
+        public static Developer Factory(string name, DateTime founded, string webSite)
         {
-            Validate();
-            return ValidationResult.IsValid;
-        }
-
-        private void Validate()
-        {
-            ValidateName();
-            ValidationResult = Validate(this);
-        }
-
-        private void ValidateName()
-        {
-            RuleFor(c => c.Name)
-                .NotEmpty().WithMessage(Messages.DeveloperNameInvalid)
-                .Length(2, 150).WithMessage(Messages.DeveloperNameInvalid);
-
-            RuleFor(c => c.Founded)
-            .NotEmpty().WithMessage(Messages.DeveloperFoundedEmpty)
-            .GreaterThan(DateTime.MinValue).WithMessage(Messages.DeveloperFoundedInvalid)
-            .LessThan(DateTime.Now).WithMessage(Messages.DeveloperFoundedInvalid);
+            var developer = new Developer(name, founded, webSite);
+            developer.ValidateNow(new DeveloperValidator(), developer);
+            return developer;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using GameLibrary.Domain.Core;
 using GameLibrary.Domain.Core.Resources;
+using System;
 using System.Collections.Generic;
 
 namespace GameLibrary.Domain.Entities.Games
@@ -11,34 +12,22 @@ namespace GameLibrary.Domain.Entities.Games
         {
         }
 
-        public Platform(string description, int plataformTypeId)
+        private Platform(string description, int plataformTypeId)
         {
             Description = description;
             PlatformTypeId = plataformTypeId;
         }
 
+        public static Platform Factory(string description, int platformTypeId)
+        {
+            var platform = new Platform(description, platformTypeId);
+            platform.ValidateNow(new PlatformValidator(), platform);
+            return platform;
+        }
+
         public string Description { get; private set; }
 
         public int PlatformTypeId { get; private set; }
-
-        public override bool IsValid()
-        {
-            Validate();
-            return ValidationResult.IsValid;
-        }
-
-        private void Validate()
-        {
-            ValidateDescription();
-            ValidationResult = Validate(this);
-        }
-
-        private void ValidateDescription()
-        {
-            RuleFor(c => c.Description)
-                .NotEmpty().WithMessage(Messages.GameTitleInvalid)
-                .Length(2, 150).WithMessage(Messages.GameTitleInvalid);
-        }
 
         //EF
         public virtual PlatformType PlatFormType { get; private set; }

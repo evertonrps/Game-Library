@@ -21,9 +21,11 @@ namespace GameLibrary.Data.Mappings
                .HasColumnType("varchar(150)")
                .IsRequired(false);
 
-            builder.Ignore(e => e.ValidationResult);
+            //builder.Ignore(e => e.ValidationResult);
 
-            builder.Ignore(e => e.CascadeMode);
+            //builder.Ignore(e => e.CascadeMode);
+
+            builder.Ignore(e => e.Erros);
 
             builder.ToTable("Developers");
         }

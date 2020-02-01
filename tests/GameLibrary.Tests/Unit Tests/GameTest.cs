@@ -34,7 +34,7 @@ namespace GameLibrary.Tests.Unit_Tests
                 DeveloperId = _DeveloperId
             };
 
-            var game = new Game(expectedGame.Title, expectedGame.Description, expectedGame.DeveloperId);
+            var game = Game.Factory(expectedGame.Title, expectedGame.Description, expectedGame.DeveloperId);
 
             expectedGame.ToExpectedObject().ShouldMatch(game);
         }
@@ -50,7 +50,7 @@ namespace GameLibrary.Tests.Unit_Tests
 
             //Act
             var x = ret.IsValid();
-            IList<ValidationFailure> failures = ret.ValidationResult.Errors;
+            IList<ValidationFailure> failures = ret.Erros;
 
             //Assert
             Assert.Contains(Messages.GameTitleInvalid, failures.Select(y => y.ErrorMessage).ToList());

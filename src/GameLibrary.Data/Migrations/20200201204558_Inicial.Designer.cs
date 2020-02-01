@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameLibrary.Data.Migrations
 {
     [DbContext(typeof(GameLibraryContext))]
-    [Migration("20200118214238_CPF")]
-    partial class CPF
+    [Migration("20200201204558_Inicial")]
+    partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

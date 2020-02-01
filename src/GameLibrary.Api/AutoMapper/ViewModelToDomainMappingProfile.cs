@@ -12,7 +12,7 @@ namespace GameLibrary.Api.AutoMapper
             CreateMap<DeveloperViewModel, Developer>();
 
             CreateMap<GameViewModel, Game>()
-                .ConstructUsing(x => new Game(x.Title, x.Description, x.DeveloperId));
+                .ConstructUsing(x => Game.Factory(x.Title, x.Description, x.DeveloperId));
 
             CreateMap<PlatformTypeViewModel, PlatformType>();
 

@@ -28,7 +28,7 @@ namespace GameLibrary.Tests.Unit_Tests
         {
             var expectedDeveloper = new { Name = "Nintendo", Founded = DateTime.Now.Date, WebSite = "www.nintendo.com" };
 
-            var developer = new Developer(expectedDeveloper.Name, expectedDeveloper.Founded, expectedDeveloper.WebSite);
+            var developer = Developer.Factory(expectedDeveloper.Name, expectedDeveloper.Founded, expectedDeveloper.WebSite);
 
             expectedDeveloper.ToExpectedObject().ShouldMatch(developer);
         }
@@ -41,14 +41,14 @@ namespace GameLibrary.Tests.Unit_Tests
 
             //Act
             var x = ret.IsValid();
-            IList<ValidationFailure> failures = ret.ValidationResult.Errors;
+            IList<ValidationFailure> failures = ret.Erros;
 
             //Assert
             Assert.Contains(Messages.DeveloperNameInvalid, failures.Select(y => y.ErrorMessage).ToList());
         }
 
         [Theory]
-        [InlineData("2020-01-01")]
+        [InlineData("2030-01-01")]
         [InlineData("0001-01-01")]
         public void Developer_CreateDeveloperWithInvalidFouded_Fail(string dateTime)
         {
@@ -58,7 +58,7 @@ namespace GameLibrary.Tests.Unit_Tests
 
             //Act
             var x = ret.IsValid();
-            IList<ValidationFailure> failures = ret.ValidationResult.Errors;
+            IList<ValidationFailure> failures = ret.Erros;
 
             //Assert
             Assert.Contains(Messages.DeveloperFoundedInvalid, failures.Select(y => y.ErrorMessage).ToList());
