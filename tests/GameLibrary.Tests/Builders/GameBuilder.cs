@@ -42,7 +42,7 @@ namespace GameLibrary.Tests.Builders
 
         public Game Build()
         {
-            return new Game(_title, _description, _DeveloperId);
+            return Game.Factory(_title, _description, _DeveloperId);
         }
     }
 }

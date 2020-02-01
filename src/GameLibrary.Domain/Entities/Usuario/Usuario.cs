@@ -68,9 +68,9 @@ namespace GameLibrary.Domain.Entities.Usuario
         {
             NomeUsuario = nomeUsuario;
         }
-        public override bool IsValid()
-        {
-            return true;
-        }
+        //public override bool IsValid()
+        //{
+        //    return true;
+        //}
     }
 }

@@ -11,7 +11,7 @@ namespace GameLibrary.Tests.Unit_Tests
         {
             var expectedPlatform = new { Description = "Xbox 360", PlatformTypeId = 10 };
 
-            var platform = new Platform(expectedPlatform.Description, expectedPlatform.PlatformTypeId);
+            var platform = Platform.Factory(expectedPlatform.Description, expectedPlatform.PlatformTypeId);
 
             expectedPlatform.ToExpectedObject().ShouldMatch(platform);
         }

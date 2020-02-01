@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GameLibrary.Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Inicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -43,7 +43,8 @@ namespace GameLibrary.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NomeUsuario = table.Column<string>(type: "varchar(150)", nullable: false),
                     Email = table.Column<string>(maxLength: 150, nullable: false),
-                    SenhaHash = table.Column<string>(nullable: true),
+                    CPF = table.Column<string>(maxLength: 11, nullable: false),
+                    SenhaHash = table.Column<string>(maxLength: 255, nullable: false),
                     DataUltimoAcesso = table.Column<DateTime>(nullable: true),
                     Bloqueado = table.Column<bool>(nullable: false),
                     Tentativas = table.Column<int>(nullable: true),

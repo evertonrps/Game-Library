@@ -18,9 +18,11 @@ namespace GameLibrary.Data.Mappings
 
             builder.Property(c => c.SenhaHash).HasMaxLength(255).IsRequired();
 
-            builder.Ignore(e => e.ValidationResult);
+            //builder.Ignore(e => e.ValidationResult);
 
-            builder.Ignore(e => e.CascadeMode);
+            //builder.Ignore(e => e.CascadeMode);
+
+            builder.Ignore(e => e.Erros);
 
             builder.ToTable("Usuarios");
         }

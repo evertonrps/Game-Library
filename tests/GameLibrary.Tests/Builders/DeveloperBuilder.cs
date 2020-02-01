@@ -43,7 +43,7 @@ namespace GameLibrary.Tests.Builders
 
         public Developer Build()
         {
-            return new Developer(_name, _founded, _webSite);
+            return Developer.Factory(_name, _founded, _webSite);
         }
     }
 }

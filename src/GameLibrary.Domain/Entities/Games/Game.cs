@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using GameLibrary.Domain.Core;
 using GameLibrary.Domain.Core.Resources;
+using System;
 using System.Collections.Generic;
 
 namespace GameLibrary.Domain.Entities.Games
@@ -15,41 +16,18 @@ namespace GameLibrary.Domain.Entities.Games
         {
         }
 
-        public Game(string title, string _description, int _DeveloperId)
+        private Game(string title, string _description, int _DeveloperId)
         {
             Title = title;
             Description = _description;
             DeveloperId = _DeveloperId;
         }
 
-        public override bool IsValid()
+        public static Game Factory(string title, string description, int developerId)
         {
-            Validate();
-            return ValidationResult.IsValid;
-        }
-
-        private void Validate()
-        {
-            ValidateTitle();
-            ValidationResult = Validate(this);
-            // ValidateDeveloper();
-        }
-
-        //private void ValidateDeveloper()
-        //{
-        //    if (Developer.IsValid()) return;
-
-        //    foreach (var error in Developer.ValidationResult.Errors)
-        //    {
-        //        ValidationResult.Errors.Add(error);
-        //    }
-        //}
-
-        private void ValidateTitle()
-        {
-            RuleFor(c => c.Title)
-                .NotEmpty().WithMessage(Messages.GameTitleInvalid)
-                .Length(2, 150).WithMessage(Messages.GameTitleInvalid);
+            var game = new Game(title, description, developerId);
+            game.ValidateNow(new GameValidator(), game);
+            return game;
         }
 
         //EF
