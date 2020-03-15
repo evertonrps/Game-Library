@@ -29,7 +29,7 @@ namespace GameLibrary.Data.Mappings
 
             builder.Ignore(e => e.Erros);
 
-            builder.ToTable("Games");
+            builder.ToTable("Jogos");
         }
     }
 }

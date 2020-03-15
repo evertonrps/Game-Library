@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace GameLibrary.Api.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/developers")]
     [ApiController]
     public class DevelopersController : ControllerBase

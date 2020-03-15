@@ -23,7 +23,7 @@ namespace GameLibrary.Data.Mappings
 
             builder.Ignore(e => e.GamePlatform);
 
-            builder.ToTable("Platforms");
+            builder.ToTable("Plataformas");
         }
     }
 }

@@ -15,7 +15,7 @@ namespace GameLibrary.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.1")
+                .HasAnnotation("ProductVersion", "3.1.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -38,7 +38,7 @@ namespace GameLibrary.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Developers");
+                    b.ToTable("Desenvolvedoras");
                 });
 
             modelBuilder.Entity("GameLibrary.Domain.Entities.Games.Game", b =>
@@ -64,7 +64,7 @@ namespace GameLibrary.Data.Migrations
 
                     b.HasIndex("DeveloperId");
 
-                    b.ToTable("Games");
+                    b.ToTable("Jogos");
                 });
 
             modelBuilder.Entity("GameLibrary.Domain.Entities.Games.GamePlatform", b =>
@@ -79,7 +79,7 @@ namespace GameLibrary.Data.Migrations
 
                     b.HasIndex("PlatformId");
 
-                    b.ToTable("GamePlatforms");
+                    b.ToTable("JogosPlataformas");
                 });
 
             modelBuilder.Entity("GameLibrary.Domain.Entities.Games.Platform", b =>
@@ -100,7 +100,7 @@ namespace GameLibrary.Data.Migrations
 
                     b.HasIndex("PlatformTypeId");
 
-                    b.ToTable("Platforms");
+                    b.ToTable("Plataformas");
                 });
 
             modelBuilder.Entity("GameLibrary.Domain.Entities.Games.PlatformType", b =>
@@ -116,7 +116,7 @@ namespace GameLibrary.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PlatformTypes");
+                    b.ToTable("TiposPlataformas");
                 });
 
             modelBuilder.Entity("GameLibrary.Domain.Entities.Usuario.Usuario", b =>

@@ -65,6 +65,41 @@ namespace GameLibrary.Data.Repository
             }
         }
 
+        public ICollection<TEntity> FindAll(Expression<Func<TEntity, bool>> match, string include = null)
+        {
+            try
+            {
+                var query = DbSet.AsQueryable();
+                List<TEntity> list; ;
+
+                if (string.IsNullOrEmpty(include))
+                    return DbSet.Where(match).ToList();
+                else
+                {
+                    {
+                        var args = include.Split(',');
+
+                        foreach (var item in args)
+                        {
+                            if (!string.IsNullOrEmpty(item.Trim()))
+                            {
+                                query = query.Include(item.Trim());
+                            }
+                        }
+
+                        query = query.Where(match);
+
+                        return list = new List<TEntity>(query);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public virtual IEnumerable<TEntity> GetAll()
         {
             return DbSet.ToList();

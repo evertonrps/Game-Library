@@ -8,7 +8,7 @@ namespace GameLibrary.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Developers",
+                name: "Desenvolvedoras",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -19,11 +19,11 @@ namespace GameLibrary.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Developers", x => x.Id);
+                    table.PrimaryKey("PK_Desenvolvedoras", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PlatformTypes",
+                name: "TiposPlataformas",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -32,7 +32,7 @@ namespace GameLibrary.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PlatformTypes", x => x.Id);
+                    table.PrimaryKey("PK_TiposPlataformas", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -56,7 +56,7 @@ namespace GameLibrary.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Games",
+                name: "Jogos",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -67,17 +67,17 @@ namespace GameLibrary.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Games", x => x.Id);
+                    table.PrimaryKey("PK_Jogos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Games_Developers_DeveloperId",
+                        name: "FK_Jogos_Desenvolvedoras_DeveloperId",
                         column: x => x.DeveloperId,
-                        principalTable: "Developers",
+                        principalTable: "Desenvolvedoras",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Platforms",
+                name: "Plataformas",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -87,17 +87,17 @@ namespace GameLibrary.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Platforms", x => x.Id);
+                    table.PrimaryKey("PK_Plataformas", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Platforms_PlatformTypes_PlatformTypeId",
+                        name: "FK_Plataformas_TiposPlataformas_PlatformTypeId",
                         column: x => x.PlatformTypeId,
-                        principalTable: "PlatformTypes",
+                        principalTable: "TiposPlataformas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "GamePlatforms",
+                name: "JogosPlataformas",
                 columns: table => new
                 {
                     GameId = table.Column<int>(nullable: false),
@@ -105,56 +105,56 @@ namespace GameLibrary.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GamePlatforms", x => new { x.GameId, x.PlatformId });
+                    table.PrimaryKey("PK_JogosPlataformas", x => new { x.GameId, x.PlatformId });
                     table.ForeignKey(
-                        name: "FK_GamePlatforms_Games_GameId",
+                        name: "FK_JogosPlataformas_Jogos_GameId",
                         column: x => x.GameId,
-                        principalTable: "Games",
+                        principalTable: "Jogos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_GamePlatforms_Platforms_PlatformId",
+                        name: "FK_JogosPlataformas_Plataformas_PlatformId",
                         column: x => x.PlatformId,
-                        principalTable: "Platforms",
+                        principalTable: "Plataformas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_GamePlatforms_PlatformId",
-                table: "GamePlatforms",
-                column: "PlatformId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Games_DeveloperId",
-                table: "Games",
+                name: "IX_Jogos_DeveloperId",
+                table: "Jogos",
                 column: "DeveloperId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Platforms_PlatformTypeId",
-                table: "Platforms",
+                name: "IX_JogosPlataformas_PlatformId",
+                table: "JogosPlataformas",
+                column: "PlatformId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Plataformas_PlatformTypeId",
+                table: "Plataformas",
                 column: "PlatformTypeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "GamePlatforms");
+                name: "JogosPlataformas");
 
             migrationBuilder.DropTable(
                 name: "Usuarios");
 
             migrationBuilder.DropTable(
-                name: "Games");
+                name: "Jogos");
 
             migrationBuilder.DropTable(
-                name: "Platforms");
+                name: "Plataformas");
 
             migrationBuilder.DropTable(
-                name: "Developers");
+                name: "Desenvolvedoras");
 
             migrationBuilder.DropTable(
-                name: "PlatformTypes");
+                name: "TiposPlataformas");
         }
     }
 }

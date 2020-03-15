@@ -6,6 +6,6 @@
 
         public int PlatformId { get; set; }
 
-        public PlatformViewModel Platform { get; set; }
+      //  public PlatformViewModel Platform { get; set; }
     }
 }

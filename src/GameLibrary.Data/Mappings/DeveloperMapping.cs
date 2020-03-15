@@ -27,7 +27,7 @@ namespace GameLibrary.Data.Mappings
 
             builder.Ignore(e => e.Erros);
 
-            builder.ToTable("Developers");
+            builder.ToTable("Desenvolvedoras");
         }
     }
 }

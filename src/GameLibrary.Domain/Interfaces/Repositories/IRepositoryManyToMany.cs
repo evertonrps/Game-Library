@@ -20,6 +20,7 @@ namespace GameLibrary.Domain.Interfaces.Repositories
 
         IEnumerable<TEntity> GetByFunc(Expression<Func<TEntity, bool>> predicate);
         Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> match, string include = null);
+        ICollection<TEntity> FindAll(Expression<Func<TEntity, bool>> match, string include = null);
 
         int SaveChanges();
     }

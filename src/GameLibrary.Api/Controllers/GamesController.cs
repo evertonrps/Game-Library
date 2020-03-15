@@ -2,7 +2,6 @@
 using GameLibrary.Api.ViewModels;
 using GameLibrary.Domain.Entities.Games;
 using GameLibrary.Domain.Interfaces.Repositories;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,7 +9,7 @@ using System.Linq;
 
 namespace GameLibrary.Api.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/games")]
     [ApiController]
     public class GamesController : ControllerBase
@@ -25,7 +24,7 @@ namespace GameLibrary.Api.Controllers
         {
             _gameRepository = gameRepository;
             _platformRepository = platformRepository;
-            _gamePlatformRepository = gamePlatformRepository;
+            _gamePlatformRepository = gamePlatformRepository; 
             _mapper = mapper;
             _uow = uow;
         }
@@ -39,15 +38,8 @@ namespace GameLibrary.Api.Controllers
             try
             {
                 var resultado = _gameRepository.GetAll();
-                var rx = resultado.Select(c => new GameViewModel { Id = c.Id, Description = c.Description, DeveloperId = c.DeveloperId, Title = c.Title });
-                result = rx.ToList();
-
-                foreach (var item in result)
-                {
-                    var plataformas = _platformRepository.GetAll(item.Id);
-                    item.Platform = new List<PlatformViewModel>(_mapper.Map<List<PlatformViewModel>>(plataformas));
-                }
-                return Ok(result);
+                var lista = _mapper.Map<List<GameViewModel>>(resultado.ToList());
+                return Ok(lista);
             }
             catch (Exception ex)
             {
@@ -61,8 +53,8 @@ namespace GameLibrary.Api.Controllers
         {
             try
             {
-                var gameEntity = _gameRepository.ObterGameCompletoPorID(id);
-                return Ok(gameEntity);
+                var gameEntity = _gameRepository.FindAll(c=> c.Id == id, "Developer,GamePlatform").FirstOrDefault();                
+                return Ok(_mapper.Map<GameViewModel>(gameEntity));
             }
             catch (Exception ex)
             {
@@ -82,8 +74,7 @@ namespace GameLibrary.Api.Controllers
 
                 if (_uow.Commit().Result > 0)
                 {
-                    result = _mapper.Map<GameViewModel>(added);
-                    //result.StatusCode = HttpStatusCode.Created;
+                    result = _mapper.Map<GameViewModel>(added);                    
                     return Ok(result);
                 }
                 else

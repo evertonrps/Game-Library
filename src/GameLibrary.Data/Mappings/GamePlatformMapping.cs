@@ -21,7 +21,7 @@ namespace GameLibrary.Data.Mappings
 
             builder.Ignore(e => e.Platform);
 
-            builder.ToTable("GamePlatforms");
+            builder.ToTable("JogosPlataformas");
         }
     }
 }
