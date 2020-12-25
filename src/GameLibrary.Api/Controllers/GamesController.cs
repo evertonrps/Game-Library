@@ -62,6 +62,21 @@ namespace GameLibrary.Api.Controllers
             }
         }
 
+        // GET: api/Games/5
+        [HttpGet("plataformas-por-id{id}")]
+        public IActionResult ObterPlataformas(int id)
+        {
+            try
+            {
+                var gameEntity = _gameRepository.FindAll(c => c.Id == id, "Developer,GamePlatform").FirstOrDefault();
+                return Ok(_mapper.Map<GameViewModel>(gameEntity));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         // POST: api/Games
         [HttpPost]
         public IActionResult Post([FromBody] GameViewModel value)

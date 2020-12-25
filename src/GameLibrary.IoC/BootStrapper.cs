@@ -18,7 +18,7 @@ namespace GameLibrary.IoC
             // services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<IConfigurationProvider>(), sp.GetService));
 
-            services.AddScoped<GameLibraryContext>();
+            services.AddDbContext<GameLibraryContext>();
 
             services.AddScoped(typeof(IGameRepository), typeof(GameRepository));
             services.AddScoped(typeof(IDeveloperRepository), typeof(DeveloperRepository));

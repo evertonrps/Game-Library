@@ -139,7 +139,7 @@ namespace GameLibrary.Api
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("../swagger/v1/swagger.json", "Game API V1");
-                c.RoutePrefix = "docs";
+                c.RoutePrefix = "swagger";
             });
         }
     }

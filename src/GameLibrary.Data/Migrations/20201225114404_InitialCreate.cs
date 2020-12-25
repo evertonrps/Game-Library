@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GameLibrary.Data.Migrations
 {
-    public partial class Inicial : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,8 +11,8 @@ namespace GameLibrary.Data.Migrations
                 name: "Desenvolvedoras",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "varchar(150)", nullable: false),
                     Founded = table.Column<DateTime>(type: "datetime", nullable: false),
                     WebSite = table.Column<string>(type: "varchar(150)", nullable: true)
@@ -26,8 +26,8 @@ namespace GameLibrary.Data.Migrations
                 name: "TiposPlataformas",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     Description = table.Column<string>(type: "varchar(150)", nullable: false)
                 },
                 constraints: table =>
@@ -39,16 +39,16 @@ namespace GameLibrary.Data.Migrations
                 name: "Usuarios",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     NomeUsuario = table.Column<string>(type: "varchar(150)", nullable: false),
-                    Email = table.Column<string>(maxLength: 150, nullable: false),
-                    CPF = table.Column<string>(maxLength: 11, nullable: false),
-                    SenhaHash = table.Column<string>(maxLength: 255, nullable: false),
-                    DataUltimoAcesso = table.Column<DateTime>(nullable: true),
-                    Bloqueado = table.Column<bool>(nullable: false),
-                    Tentativas = table.Column<int>(nullable: true),
-                    Ativo = table.Column<bool>(nullable: false)
+                    Email = table.Column<string>(type: "TEXT", maxLength: 150, nullable: false),
+                    CPF = table.Column<string>(type: "TEXT", maxLength: 11, nullable: false),
+                    SenhaHash = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    DataUltimoAcesso = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    Bloqueado = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Tentativas = table.Column<int>(type: "INTEGER", nullable: true),
+                    Ativo = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -59,11 +59,11 @@ namespace GameLibrary.Data.Migrations
                 name: "Jogos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: false),
-                    Description = table.Column<string>(type: "varchar(max)", maxLength: 150, nullable: true),
-                    DeveloperId = table.Column<int>(nullable: false)
+                    Description = table.Column<string>(type: "varchar(200)", maxLength: 150, nullable: true),
+                    DeveloperId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -80,10 +80,10 @@ namespace GameLibrary.Data.Migrations
                 name: "Plataformas",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     Description = table.Column<string>(type: "varchar(150)", nullable: false),
-                    PlatformTypeId = table.Column<int>(nullable: false)
+                    PlatformTypeId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -100,8 +100,8 @@ namespace GameLibrary.Data.Migrations
                 name: "JogosPlataformas",
                 columns: table => new
                 {
-                    GameId = table.Column<int>(nullable: false),
-                    PlatformId = table.Column<int>(nullable: false)
+                    GameId = table.Column<int>(type: "INTEGER", nullable: false),
+                    PlatformId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

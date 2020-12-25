@@ -2,8 +2,10 @@
 using GameLibrary.Data.Mappings;
 using GameLibrary.Domain.Entities.Games;
 using GameLibrary.Domain.Entities.Usuario;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Data.Common;
 using System.IO;
 
 namespace GameLibrary.Data.Context
@@ -16,6 +18,11 @@ namespace GameLibrary.Data.Context
         public DbSet<PlatformType> PlatformTypes { get; set; }
         public DbSet<GamePlatform> GamePlatforms { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
+
+        public GameLibraryContext()
+        {
+            Database.EnsureCreated();
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,13 +38,24 @@ namespace GameLibrary.Data.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .Build();
+            // var config = new ConfigurationBuilder()
+            //     .SetBasePath(Directory.GetCurrentDirectory())
+            //     .AddJsonFile("appsettings.json")
+            //     .Build();
 
             optionsBuilder.UseLazyLoadingProxies();
-            optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+            optionsBuilder.UseSqlite(CreateInMemoryDatabase());
+            //optionsBuilder.UseInMemoryDatabase();
+            //optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+        }
+
+        private static DbConnection CreateInMemoryDatabase()
+        {
+            var connection = new SqliteConnection("DataSource=file::memory:?cache=shared");
+
+            connection.Open();
+
+            return connection;
         }
     }
 }
