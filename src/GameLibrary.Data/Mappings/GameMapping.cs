@@ -17,7 +17,7 @@ namespace GameLibrary.Data.Mappings
             builder.Property(c => c.Description)
             .IsRequired(false)
             .HasMaxLength(150)
-            .HasColumnType("varchar(max)");
+            .HasColumnType("varchar(200)");
 
             builder.HasOne(c => c.Developer)
             .WithMany(y => y.Games)

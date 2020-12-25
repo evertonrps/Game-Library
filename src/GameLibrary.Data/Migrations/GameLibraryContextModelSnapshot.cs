@@ -3,7 +3,6 @@ using System;
 using GameLibrary.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GameLibrary.Data.Migrations
@@ -15,16 +14,13 @@ namespace GameLibrary.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.2")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "5.0.1");
 
             modelBuilder.Entity("GameLibrary.Domain.Entities.Games.Developer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("Founded")
                         .HasColumnType("datetime");
@@ -45,20 +41,19 @@ namespace GameLibrary.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
-                        .HasColumnType("varchar(max)")
-                        .HasMaxLength(150);
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(200)");
 
                     b.Property<int>("DeveloperId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("varchar(150)")
-                        .HasMaxLength(150);
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
 
                     b.HasKey("Id");
 
@@ -70,10 +65,10 @@ namespace GameLibrary.Data.Migrations
             modelBuilder.Entity("GameLibrary.Domain.Entities.Games.GamePlatform", b =>
                 {
                     b.Property<int>("GameId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("PlatformId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("GameId", "PlatformId");
 
@@ -86,15 +81,14 @@ namespace GameLibrary.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("varchar(150)");
 
                     b.Property<int>("PlatformTypeId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -107,8 +101,7 @@ namespace GameLibrary.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -123,27 +116,26 @@ namespace GameLibrary.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("Ativo")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("Bloqueado")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("CPF")
                         .IsRequired()
-                        .HasColumnType("nvarchar(11)")
-                        .HasMaxLength(11);
+                        .HasMaxLength(11)
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("DataUltimoAcesso")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                        .HasMaxLength(150)
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("NomeUsuario")
                         .IsRequired()
@@ -151,11 +143,11 @@ namespace GameLibrary.Data.Migrations
 
                     b.Property<string>("SenhaHash")
                         .IsRequired()
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("Tentativas")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -169,6 +161,8 @@ namespace GameLibrary.Data.Migrations
                         .HasForeignKey("DeveloperId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Developer");
                 });
 
             modelBuilder.Entity("GameLibrary.Domain.Entities.Games.GamePlatform", b =>
@@ -184,6 +178,8 @@ namespace GameLibrary.Data.Migrations
                         .HasForeignKey("PlatformId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Game");
                 });
 
             modelBuilder.Entity("GameLibrary.Domain.Entities.Games.Platform", b =>
@@ -193,6 +189,28 @@ namespace GameLibrary.Data.Migrations
                         .HasForeignKey("PlatformTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("PlatFormType");
+                });
+
+            modelBuilder.Entity("GameLibrary.Domain.Entities.Games.Developer", b =>
+                {
+                    b.Navigation("Games");
+                });
+
+            modelBuilder.Entity("GameLibrary.Domain.Entities.Games.Game", b =>
+                {
+                    b.Navigation("GamePlatform");
+                });
+
+            modelBuilder.Entity("GameLibrary.Domain.Entities.Games.Platform", b =>
+                {
+                    b.Navigation("GamePlatform");
+                });
+
+            modelBuilder.Entity("GameLibrary.Domain.Entities.Games.PlatformType", b =>
+                {
+                    b.Navigation("Platforms");
                 });
 #pragma warning restore 612, 618
         }

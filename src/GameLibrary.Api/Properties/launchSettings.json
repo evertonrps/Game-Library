@@ -23,11 +23,11 @@
     },
     "GameLibrary.Api": {
       "commandName": "Project",
-      "launchUrl": "docs",
+      "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:8001"
+      "applicationUrl": "http://localhost:8001/"
     },
     "IIS Local": {
       "commandName": "IIS",
